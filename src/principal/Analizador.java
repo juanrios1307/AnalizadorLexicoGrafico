@@ -13,6 +13,47 @@ public class Analizador {
 	// write your code here
         Analizador a=new Analizador();
         a.leerTSimbolos();
+        System.out.println(leerTOperadores());
+        
+    }
+    
+    public static ArrayList<char> leerTOperadores() {
+    	 File tabla = null;
+         FileReader fr = null;
+         BufferedReader br = null;
+
+         try {
+            // Apertura del fichero y creacion de BufferedReader para poder
+            // hacer una lectura comoda (disponer del metodo readLine()).
+            tabla = new File ("/assets/tablaSimbolos.txt");
+            fr = new FileReader (archivo);
+            br = new BufferedReader(fr);
+            
+            ArrayList<char> operadores = new ArrayList()<char>;
+
+            // Lectura del fichero
+            String linea;
+            while((linea=br.readLine())!=null) {
+                operadores.add(linea.charAt(0));
+            }     
+            
+            return operadores;
+         }
+         catch(Exception e){
+            e.printStackTrace();
+         }finally{
+            // En el finally cerramos el fichero, para asegurarnos
+            // que se cierra tanto si todo va bien como si salta 
+            // una excepcion.
+            try{                    
+               if( null != fr ){   
+                  fr.close();     
+               }                  
+            }catch (Exception e2){ 
+               e2.printStackTrace();
+            }
+         }
+      }
     }
 
     public void leerTSimbolos(){
