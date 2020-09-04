@@ -2,3 +2,8 @@ hola,
 dimelo,
 papa,
 repeti,
+principal
+importar
+hasta
+imprimir
+

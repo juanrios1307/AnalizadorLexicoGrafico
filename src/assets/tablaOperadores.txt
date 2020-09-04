@@ -1,0 +1,24 @@
+' ,Agrupacion
+" ,Agrupacion
+  ,Separador
+) ,Agrupacion
+( ,Agrupacion
+{
+}
+[
+]
+&
+%
+!
+*
+-
++
+/
+%
+=
+<
+>
+.
+:
+,
+;
