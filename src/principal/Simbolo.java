@@ -13,4 +13,13 @@ public class Simbolo {
         this.ubicacion = ubicacion;
         this.tipos = tipos;
     }
+
+    @Override
+    public String toString() {
+        return "Simbolo{" +
+                "simbolo='" + simbolo + '\'' +
+                ", ubicacion=" + ubicacion +
+                ", tipos='" + tipos + '\'' +
+                "} \n ";
+    }
 }

@@ -21,7 +21,7 @@ byte , palabra reservada ; tipo dato
 caracter , palabra reservada ; tipo dato
 short , palabra reservada ; tipo dato
 cadena , palabra reservada ; tipo dato
-double , palabra reservada ; tipo dato
+real , palabra reservada ; tipo dato
 flotante , palabra reservada ; tipo dato
 entero , palabra reservada ; tipo dato
 largo , palabra reservada ; tipo dato

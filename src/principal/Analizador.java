@@ -19,7 +19,10 @@ public class Analizador {
 	// write your code here
         Analizador a=new Analizador();
         a.leerTSimbolos();
+
         a.leerTOperadores();
+
+        a.leerCodigo();
     }
 
     public void leerTSimbolos(){
@@ -37,9 +40,6 @@ public class Analizador {
 
             // Lectura del fichero y alamcenamiento de palabras clave en DE
             palabrasClave(br);
-
-            System.out.println(palabrasClave);
-            System.out.println(tiposPalabrasClave);
 
         }
         catch(Exception e){
@@ -90,8 +90,6 @@ public class Analizador {
             // Lectura del fichero y alamcenamiento de palabras clave en DE
             operadores(br);
 
-            System.out.println(operadores);
-            System.out.println(tiposOperadores);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -144,9 +142,7 @@ public class Analizador {
             br = new BufferedReader(fr);
 
             // Lectura del fichero
-            String linea;
-            while((linea=br.readLine())!=null)
-                System.out.println(linea);
+            System.out.println(analizador(br));
 
         } catch(Exception e){
             e.printStackTrace();
@@ -177,13 +173,15 @@ public class Analizador {
             columna++;
             for(int i=0;i<linea.length();i++){
 
-                while(i<linea.length() && !operadores.contains(linea.substring(i,i+1))){
+                while(i<linea.length() && !operadores.contains(linea.substring(i,i))){
                     simbolo.append(linea.charAt(i));
+                    i++;
                 }
 
 
                 String simbol=simbolo.toString();
                 String tipo="";
+
                 if(palabrasClave.contains(simbol)){
                     tipo=tiposPalabrasClave.get(busquedaPalClave(simbol));
                 }else if(operadores.contains(simbol)){
