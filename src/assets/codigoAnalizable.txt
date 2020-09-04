@@ -1,0 +1,57 @@
+paquete Deposito;
+
+importar depositos;
+
+publico clase Deposito {    
+
+    privado float diametro;
+    privado float altura;
+    privado String idDeposito;
+
+    publico Deposito () {
+        este(0,0,"");       
+    }
+   
+    publico Deposito (float valor_diametro, float valor_altura, String valor_idDeposito) {
+        si (valor_diametro > 0 && valor_altura > 0) {            
+            diametro = valor_diametro;
+            altura = valor_altura;
+            idDeposito = valor_idDeposito;
+        } sino {
+            diametro = 10;
+            altura = 5;
+            idDeposito = "000";
+            imprimir ("Creado depósito con valores por defecto diametro 10 metros altura 5 metros id 000" );
+        }  
+        hasta ( valor_diametro > 0)
+        	diametro = valor_diametro;
+        }
+
+    publico vacio setValoresDeposito (String valor_idDeposito, float valor_diametro, float valor_altura) {
+        idDeposito = valor_idDeposito;
+        diametro = valor_diametro;
+        altura = valor_altura;
+        si (idDeposito !="" && valor_diametro > 0 && valor_altura > 0) {
+        } sino {
+            imprimir ("Valores no admisibles. No se han establecido valores para el depósito");
+            idDeposito = "";
+            diametro = 0;
+            altura = 0;
+        }    
+    }
+
+    publico float getDiametro () { retorna diametro; }
+    publico float getAltura () { retorna altura; }
+    publico String getIdDeposito () { retorna idDeposito; }
+    publico float valorCapacidad () {
+        float capacidad;
+        float pi = 3.1416f;
+        capacidad = pi * (diametro/2) * (diametro/2) * altura;
+        retorna capacidad;
+    } 
+    
+     publico estatico vacio principal (String [ ] args) {
+       imprimir ("Empezamos la ejecución del programa");
+		}
+	}  
+} 
