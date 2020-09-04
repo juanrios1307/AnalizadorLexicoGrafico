@@ -1,24 +1,24 @@
-' ,Agrupacion
-" ,Agrupacion
-  ,Separador
-) ,Agrupacion
-( ,Agrupacion
-{
-}
-[
-]
-&
-%
-!
-*
--
-+
-/
-%
-=
-<
->
-.
-:
-,
-;
+' , Agrupacion , Separador 	
+" , Agrupacion , Separador
+  , Separador
+) , Agrupacion , Separador
+( , Agrupacion , Separador
+{ , Agrupacion  , Separador
+} , Agrupacion , Separador
+[ , Agrupacion , Separador
+] , Agrupacion , Separador
+& , Operador Logico , Separador
+% , Operador Aritmetico , Separador
+! , Operador Logico , Separador
+* , Operador Aritmetico , Separador
+- , Operador Aritmetico , Separador
++ , Operador Aritmetico , Separador
+/ , Operador Aritmetico , Separador
+% , Operador Aritmetico , Separador
+= , Operador Racional , Separador
+< , Operador Racional , Separador
+> , Operador Racional , Separador
+. , Separador
+: , Separador
+, , Separador
+; , Separador de Sentencias
