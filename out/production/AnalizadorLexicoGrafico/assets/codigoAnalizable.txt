@@ -4,15 +4,15 @@ importar depositos;
 
 publico clase Deposito {    
 
-    privado float diametro;
-    privado float altura;
-    privado String idDeposito;
+    privado flotante diametro;
+    privado flotante altura;
+    privado cadena idDeposito;
 
     publico Deposito () {
         este(0,0,"");       
     }
    
-    publico Deposito (float valor_diametro, float valor_altura, String valor_idDeposito) {
+    publico Deposito (flotante valor_diametro, flotante valor_altura, cadena valor_idDeposito) {
         si (valor_diametro > 0 && valor_altura > 0) {            
             diametro = valor_diametro;
             altura = valor_altura;
@@ -27,7 +27,7 @@ publico clase Deposito {
         	diametro = valor_diametro;
         }
 
-    publico vacio setValoresDeposito (String valor_idDeposito, float valor_diametro, float valor_altura) {
+    publico vacio setValoresDeposito (cadena valor_idDeposito, flotante valor_diametro, flotante valor_altura) {
         idDeposito = valor_idDeposito;
         diametro = valor_diametro;
         altura = valor_altura;
@@ -40,17 +40,17 @@ publico clase Deposito {
         }    
     }
 
-    publico float getDiametro () { retorna diametro; }
-    publico float getAltura () { retorna altura; }
-    publico String getIdDeposito () { retorna idDeposito; }
-    publico float valorCapacidad () {
-        float capacidad;
-        float pi = 3.1416f;
+    publico flotante getDiametro () { retorna diametro; }
+    publico flotante getAltura () { retorna altura; }
+    publico cadena getIdDeposito () { retorna idDeposito; }
+    publico flotante valorCapacidad () {
+        flotante capacidad;
+        flotante pi = 3.1416f;
         capacidad = pi * (diametro/2) * (diametro/2) * altura;
         retorna capacidad;
     } 
     
-     publico estatico vacio principal (String [ ] args) {
+     publico estatico vacio principal (cadena [ ] args) {
        imprimir ("Empezamos la ejecucion del programa");
 		}
 	}  
