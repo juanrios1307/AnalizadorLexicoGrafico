@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class Analizador {
 
@@ -45,6 +46,14 @@ public class Analizador {
                 e2.printStackTrace();
             }
         }
+    }
+
+    public ArrayList<String> palabras(String linea){
+        for(int i=0;i<linea.length();i++){
+
+        }
+
+        return null;
     }
 
     public void leerTOperadores(){

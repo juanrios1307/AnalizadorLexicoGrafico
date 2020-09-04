@@ -1,9 +1,47 @@
-hola,
-dimelo,
-papa,
-repeti,
-principal
-importar
-hasta
-imprimir
+principal , palabra reservada
+importar , palabra reservada
+paquete , palabra reservada
+hasta , palabra reservada , ciclo
+por , palabra reservada , ciclo
+haz , palabra reservada , ciclo
+switch , palabra reservada , condicional
+caso , palabra reservada , condicional
+quebrar , palabra reservada , condicional
+continua , palabra reservada , condicional
+si , palabra reservada , condicional
+sino , palabra reservada , condicional
+sinosi , palabra reservada , condicional
+trata , palabra reservada
+atrapa , palabra reservada
+lanza , palabra reservada
+finalmente, palabra reservada
+constante , palabra reservada
+booleano , palabra reservada , tipo dato
+byte , palabra reservada , tipo dato
+caracter , palabra reservada , tipo dato
+short , palabra reservada , tipo dato
+cadena , palabra reservada , tipo dato
+double , palabra reservada , tipo dato
+flotante , palabra reservada , tipo dato
+entero , palabra reservada , tipo dato
+largo , palabra reservada , tipo dato
+imprimir , palabra reservada
+abstracto , palabra reservada
+extiende , palabra reservada
+nuevo , palabra reservada
+instanciade , palabra reservada
+super , palabra reservada
+implementa , palabra reservada
+interfaz , palabra reservada
+retorna , palabra reservada
+vacio , palabra reservada
+estatico , palabra reservada
+publico , palabra reservada
+privado , palabra reservada
+protegido , palabra reservada
+super , palabra reservada
+este , palabra reservada
+clase , palabra reservada
+nulo , palabra reservada
+
 
