@@ -51,7 +51,7 @@ publico clase Deposito  {
     } 
     
      publico estatico vacio principal (cadena [ ] args) {
-       imprimir ("Empezamos la ejecucion del programa");
+       imprimir ('Empece');
 		}
 	}  
 } 

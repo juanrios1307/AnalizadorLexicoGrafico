@@ -21,7 +21,7 @@ publico clase Deposito  {
             diametro = 10;
             altura = 5;
             idDeposito = "000";
-            imprimir (" Creado deposito con valores por defecto diametro 10 metros altura 5 metros id 000" );
+            imprimir ("Creado deposito con valores por defecto diametro 10 metros altura 5 metros id 000" );
         }  
         hasta ( valor_diametro > 0)
         	diametro = valor_diametro;
@@ -51,7 +51,7 @@ publico clase Deposito  {
     } 
     
      publico estatico vacio principal (cadena [ ] args) {
-       imprimir ('Empezamos');
+       imprimir ('Empece');
 		}
 	}  
 } 
