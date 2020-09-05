@@ -11,8 +11,6 @@ public class Ubicacion {
 
         @Override
         public String toString() {
-            return "(" + fila +
-                    ", " + columna +
-                    ')';
+            return "(" + fila + ", " + columna + ')';
         }
 }

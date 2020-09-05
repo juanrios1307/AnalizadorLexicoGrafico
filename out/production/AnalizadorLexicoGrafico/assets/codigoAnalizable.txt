@@ -2,13 +2,13 @@ paquete Deposito;
 
 importar depositos;
 
-publico clase Deposito {    
+publico clase Deposito  {
 
     privado flotante diametro;
     privado flotante altura;
     privado cadena idDeposito;
 
-    publico Deposito () {
+    publico Deposito (){
         este(0,0,"");       
     }
    

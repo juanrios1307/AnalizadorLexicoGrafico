@@ -6,7 +6,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class Analizador {
 
@@ -23,6 +29,8 @@ public class Analizador {
         a.leerTSimbolos();
         a.leerTOperadores();
         a.leerTOperadoresEspeciales();
+
+
 
         a.leerCodigo();
     }
@@ -181,8 +189,10 @@ public class Analizador {
             fr = new FileReader (archivo);
             br = new BufferedReader(fr);
 
+
             // Lectura del fichero
             ArrayList<Simbolo> simbolos=analizador(br);
+
 
         } catch(Exception e){
             e.printStackTrace();
@@ -201,43 +211,79 @@ public class Analizador {
     public ArrayList<Simbolo> analizador(BufferedReader br) throws IOException {
         //Declaro variables
         String linea;
-        ArrayList<Simbolo> simbolos=new ArrayList<>();
+        String tipo = "";
+        ArrayList<Simbolo> simbolos = new ArrayList<>();
 
         //Declaro variables para ubicacion de simbolos
-        int columna=0;
+        int fila = 1;
 
         //Declaro bufferedString para crear simbolos
 
 
-        while((linea=br.readLine()) != null){
-            columna++;
-            for(int i=0;i<linea.length();i++){
-                int fila=0;
-                StringBuilder simbolo=new StringBuilder();
-                while(i<linea.length() && !operadores.contains(linea.substring(i,i+1)) &&
-                        !operadoresEspeciales.contains(linea.substring(i,i+2))){
+        while ((linea = br.readLine()) != null) {
+
+
+            for (int i = 0; i < linea.length(); i++) {
+                //Almacenamos numero de fila
+                int columna = i + 1;
+
+                //Creamos stringBuilder para almacenar las palabras y simbolos
+                StringBuilder simbolo = new StringBuilder();
+
+                //Corremos un ciclo mientras no encuentre operadores y guarde palabras
+                while (i < linea.length() && !operadores.contains(linea.substring(i, i + 1)) &&
+                        !operadoresEspeciales.contains(linea.substring(i, i + 2))) {
+
+                    //Agregamos caracteres al stringBuilder
                     simbolo.append(linea.charAt(i));
                     i++;
                 }
 
-                String simbol=simbolo.toString();
-                String tipo="";
+                //Parseamos stringBuilder to String
+                String simbol = simbolo.toString();
 
-                if(palabrasClave.contains(simbol)){
-                    tipo=tiposPalabrasClave.get(busquedaPalClave(simbol));
-                }else{
-                    tipo="identificador";
+
+
+                //Verificamos que la palabra sea una palabra reservada o un identificador
+                if (palabrasClave.contains(simbol)) {
+                    tipo = tiposPalabrasClave.get(busquedaPalClave(simbol));
+                } else {
+                    tipo = "identificador";
                 }
 
-                Simbolo temporal=new Simbolo(simbol,new Ubicacion(i,columna),tipo);
-                simbolos.add(temporal);
-
-                if(operadores.contains(linea.substring(i,i+1))){
-
+                //Creamos el simbolo y lo almacenamos en la lista de simbolos y se verifica que no sea vacio
+                if(simbol.length()>0) {
+                    Simbolo temporal = new Simbolo(simbol, new Ubicacion(fila, columna), tipo);
+                    simbolos.add(temporal);
                 }
 
+                //Creamos stringBuilder para almacenar las operadores
 
+                String op = "";
+                columna = i + 1;
+
+                if (operadores.contains(linea.substring(i, i + 1))) {
+                    op = linea.substring(i, i + 1);
+                    tipo = tiposOperadores.get(busquedaOperadores(op));
+
+                    //Creamos el simbolo y lo almacenamos en la lista de simbolos
+                    Simbolo opEsp = new Simbolo(op, new Ubicacion(fila, columna), tipo);
+                    simbolos.add(opEsp);
+                } else if (operadoresEspeciales.contains(linea.substring(i, i + 2))) {
+                    op = linea.substring(i, i + 2);
+                    tipo = tiposOpEspeciales.get(busquedaOpEspeciales(op));
+
+                    //Creamos el simbolo y lo almacenamos en la lista de simbolos
+                    Simbolo opEsp = new Simbolo(op, new Ubicacion(fila, columna), tipo);
+                    simbolos.add(opEsp);
+
+                }
             }
+
+
+
+
+            fila++;
         }
         //retorno simbolos
         System.out.println(simbolos);
@@ -257,6 +303,11 @@ public class Analizador {
         return(i==operadores.size()) ? -1: i;
     }
 
+    public  int busquedaOpEspeciales(String palabra){
+        int i=0;
+        while ( i<operadoresEspeciales.size() && operadoresEspeciales.get(i).compareTo(palabra)!=0) i++ ;
+        return(i==operadoresEspeciales.size()) ? -1: i;
+    }
 
 
 

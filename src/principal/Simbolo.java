@@ -16,10 +16,10 @@ public class Simbolo {
 
     @Override
     public String toString() {
-        return "Simbolo{" +
-                "simbolo='" + simbolo + '\'' +
-                ", ubicacion=" + ubicacion +
-                ", tipos='" + tipos + '\'' +
-                "} \n ";
+        return "[\t" +
+                "simbolo:'" + simbolo + "\'\t " +
+                ", ubicacion:" + ubicacion +"\t " +
+                ", tipos: " + tipos + "\t " +
+                "] \n ";
     }
 }
