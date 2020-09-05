@@ -17,9 +17,8 @@ public class Simbolo {
     @Override
     public String toString() {
         return "[\t" +
-                "simbolo:'" + simbolo + "\'\t " +
-                ", ubicacion:" + ubicacion +"\t " +
-                ", tipos: " + tipos + "\t " +
-                "] \n ";
+                "simbolo:'" + simbolo + "\'\t\t " +
+                "ubicacion:" + ubicacion +"\t\t " +
+                "tipos: " + tipos + "\t\t ] \n ";
     }
 }

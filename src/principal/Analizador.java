@@ -309,8 +309,6 @@ public class Analizador {
         return(i==operadoresEspeciales.size()) ? -1: i;
     }
 
-
-
     public void tablaCodigo(){
 
     }
