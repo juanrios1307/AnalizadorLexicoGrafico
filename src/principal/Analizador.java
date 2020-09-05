@@ -240,11 +240,13 @@ public class Analizador {
         //Se lee linea por linea del fichero
         while ((linea = br.readLine()) != null) {
 
+            int columna=1;
+
             //Se lee caracter por caracter de cada linea
             for (int i = 0; i < linea.length(); i++) {
 
                 //Almacenamos numero de columna
-                int columna = i + 1;
+                columna = i + 1;
 
                 //Creamos stringBuilder para almacenar las palabras y simbolos
                 StringBuilder simbolo = new StringBuilder();
@@ -281,7 +283,70 @@ public class Analizador {
                 //Busco si hay un operador en el punto y lo almaceno
                 if (operadores.contains(linea.substring(i, i + 1))) {
                     op = linea.substring(i, i + 1);
-                    tipo = tiposOperadores.get(busquedaOperadores(op));
+
+                    //Creamos stringBuilder para almacenar las palabras y simbolos
+                    StringBuilder cadena = new StringBuilder();
+
+                    //Se corre un ciclo para verificar cadenas entre comillas dobles y simples
+                    if(op.equals("\"")){
+
+                        Simbolo opEsp = new Simbolo(op, new Ubicacion(fila, columna), tipo);
+                        simbolos.add(opEsp);
+
+                        i++;
+                        columna = i + 1;
+                        op="";
+
+                        while (i< linea.length() && !(linea.substring(i, i + 1)).equals("\"")) {
+                            //Agregamos caracteres al stringBuilder
+                            cadena.append(linea.charAt(i));
+                            i++;
+                        }//cierre while
+
+                        //Se agrega la cadena
+                        Simbolo scadena = new Simbolo(cadena.toString(), new Ubicacion(fila, columna), "cadena");
+                        simbolos.add(scadena);
+
+                        columna=i+1;
+                        //Se agrega el smbolo de cierre
+                        Simbolo cierre = new Simbolo(linea.substring(i,i+1), new Ubicacion(fila, columna), "Operador Agrupacion ; Separador");
+                        simbolos.add(cierre);
+
+                        i++;
+
+                    }else if(op.equals("\'")) {
+
+                        Simbolo opEsp = new Simbolo(op, new Ubicacion(fila, columna), tipo);
+                        simbolos.add(opEsp);
+
+                        i++;
+                        columna = i + 1;
+                        op="";
+
+                        while (i< linea.length() && !(linea.substring(i, i + 1)).equals("\'")) {
+                            //Agregamos caracteres al stringBuilder
+                            cadena.append(linea.charAt(i));
+                            i++;
+                        }//cierre while
+
+                        //se agrega la cadena
+                        Simbolo scadena = new Simbolo(cadena.toString(), new Ubicacion(fila, columna), "cadena");
+                        simbolos.add(scadena);
+
+                        columna=i+1;
+
+                        //Se agrega simbolo de cierre
+                        Simbolo cierre = new Simbolo(linea.substring(i,i+1), new Ubicacion(fila, columna), "Operador Agrupacion ; Separador");
+                        simbolos.add(cierre);
+
+                        i++;
+
+                    }
+
+                    if(op.length()>0)
+                        tipo = tiposOperadores.get(busquedaOperadores(op));
+
+
                 } else if (operadoresEspeciales.contains(linea.substring(i, i + 2))) {
                     op = linea.substring(i, i + 2);
                     tipo = tiposOpEspeciales.get(busquedaOpEspeciales(op));
@@ -296,8 +361,12 @@ public class Analizador {
 
             }//Cierre for
 
+            Simbolo opEsp = new Simbolo("\\n", new Ubicacion(fila, linea.length()+1), "Separador");
+            simbolos.add(opEsp);
+
             //Aumento 1 fila
             fila++;
+
 
         }//Cierre While
 
