@@ -3,7 +3,7 @@
 * Juan Esteban Rios
 *
 * Proyecto en Github : https://github.com/juanrios1307/AnalizadorLexicoGrafico
-* Version java : 1.11.0-openjdk
+* Version java : 11.0.8-openjdk
 * pruebas de funcionamiento ubuntu 20.04 lts */
 
 
@@ -371,10 +371,7 @@ public class Analizador {
 
 
 
-            System.out.println(url.getPath());
-
-           f = new File("src/assets/tablaFinal.txt");
-            w = new FileWriter(f);
+            w = new FileWriter("tablaFinal.txt");
             bw = new BufferedWriter(w);
             wr = new PrintWriter(bw);
 
