@@ -341,7 +341,7 @@ public class Analizador {
 
         try {
             //Inicializacion de archivos para escritura de tabla
-            f = new File("tablaFinal.txt");
+            f = new File("src/assets/tablaFinal.txt");
             w = new FileWriter(f);
             bw = new BufferedWriter(w);
             wr = new PrintWriter(bw);
