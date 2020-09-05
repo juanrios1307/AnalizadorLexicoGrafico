@@ -1,15 +1,19 @@
+/*Realizado por:
+* Juan Sebastian Henao
+* Juan Esteban Rios
+*
+* Proyecto en Github : https://github.com/juanrios1307/AnalizadorLexicoGrafico
+* Version java : 1.11.0-openjdk
+* pruebas de funcionamiento ubuntu 20.04 lts */
+
+
 package principal;
 
 
 import java.io.*;
 import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+
 
 public class Analizador {
     //Declaracion de las listas a usar
@@ -48,6 +52,10 @@ public class Analizador {
 
             // Lectura del fichero y alamcenamiento de palabras clave en DE
             palabrasClave(br);
+
+            //Se cierran archivos
+            br.close();
+            fr.close();
 
         }
         catch(Exception e){
@@ -99,6 +107,10 @@ public class Analizador {
             // Lectura del fichero y alamcenamiento de palabras clave en DE
             operadores(br);
 
+            //Se cierran archivos
+            br.close();
+            fr.close();
+
         }
         catch(Exception e){
             e.printStackTrace();
@@ -145,6 +157,9 @@ public class Analizador {
             // Lectura del fichero y alamcenamiento de palabras clave en DE
             operadoresEspeciales(br);
 
+            //Se cierran archivos
+            br.close();
+            fr.close();
         }
         catch(Exception e){
             e.printStackTrace();
@@ -194,6 +209,9 @@ public class Analizador {
             // Lectura del fichero
             ArrayList<Simbolo> simbolos=analizador(br);
 
+            //Se cierran archivos
+            br.close();
+            fr.close();
 
         } catch(Exception e){
             e.printStackTrace();
@@ -315,20 +333,27 @@ public class Analizador {
 
     //Se crea fichero con lista de simbolos
     public void tablaCodigo(ArrayList<Simbolo> a){
+        //Declaracion de variables para escribir en fichero
         File f;
         FileWriter w;
         BufferedWriter bw;
         PrintWriter wr;
 
         try {
+            //Inicializacion de archivos para escritura de tabla
             f = new File("tablaFinal.txt");
             w = new FileWriter(f);
             bw = new BufferedWriter(w);
             wr = new PrintWriter(bw);
 
+            //Se escribe la lista de simbolos en archivo
             wr.write(a.toString());
 
+            //Se cierra archivos
             wr.close();
+            bw.close();
+            w.close();
+
         }catch(Exception e){
             e.printStackTrace();
         }
