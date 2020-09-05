@@ -1,10 +1,7 @@
 package principal;
 
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
@@ -286,8 +283,9 @@ public class Analizador {
 
         }//Cierre While
 
-        //retorno simbolos
+        //retorno y creacion del fichero de la tabla de simbolos
         System.out.println(simbolos);
+        tablaCodigo(simbolos);
         return simbolos;
     }//Cierre metodo
     
@@ -316,8 +314,24 @@ public class Analizador {
     }//Cierre metodo
 
     //Se crea fichero con lista de simbolos
-    public void tablaCodigo(){
+    public void tablaCodigo(ArrayList<Simbolo> a){
+        File f;
+        FileWriter w;
+        BufferedWriter bw;
+        PrintWriter wr;
 
+        try {
+            f = new File("tablaFinal.txt");
+            w = new FileWriter(f);
+            bw = new BufferedWriter(w);
+            wr = new PrintWriter(bw);
+
+            wr.write(a.toString());
+
+            wr.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }//Cierre metodo
 
 
