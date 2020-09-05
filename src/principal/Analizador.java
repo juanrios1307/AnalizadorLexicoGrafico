@@ -26,13 +26,13 @@ public class Analizador {
     public static void main(String[] args) {
 	// write your code here
         Analizador a=new Analizador();
+
+        //Se lee e inicializan las listas
         a.leerTSimbolos();
         a.leerTOperadores();
         a.leerTOperadoresEspeciales();
 
-
-
-        a.leerCodigo();
+        a.leerAnalizarCodigo();
     }
 
     public void leerTSimbolos(){
@@ -172,7 +172,7 @@ public class Analizador {
         }
     }
 
-    public void leerCodigo(){
+    public void leerAnalizarCodigo(){
 
         //Declaracion de variables a usar
         File archivo = null;
@@ -217,8 +217,6 @@ public class Analizador {
         //Declaro variables para ubicacion de simbolos
         int fila = 1;
 
-        //Declaro bufferedString para crear simbolos
-
 
         while ((linea = br.readLine()) != null) {
 
@@ -258,31 +256,25 @@ public class Analizador {
                 }
 
                 //Creamos stringBuilder para almacenar las operadores
-
                 String op = "";
                 columna = i + 1;
 
+                //Busco si hay un operador en el punto y lo almaceno
                 if (operadores.contains(linea.substring(i, i + 1))) {
                     op = linea.substring(i, i + 1);
                     tipo = tiposOperadores.get(busquedaOperadores(op));
-
-                    //Creamos el simbolo y lo almacenamos en la lista de simbolos
-                    Simbolo opEsp = new Simbolo(op, new Ubicacion(fila, columna), tipo);
-                    simbolos.add(opEsp);
                 } else if (operadoresEspeciales.contains(linea.substring(i, i + 2))) {
                     op = linea.substring(i, i + 2);
                     tipo = tiposOpEspeciales.get(busquedaOpEspeciales(op));
-
+                }
+                if(op.length()>0){
                     //Creamos el simbolo y lo almacenamos en la lista de simbolos
                     Simbolo opEsp = new Simbolo(op, new Ubicacion(fila, columna), tipo);
                     simbolos.add(opEsp);
-
                 }
+
             }
-
-
-
-
+            //Aumento 1 fila
             fila++;
         }
         //retorno simbolos
