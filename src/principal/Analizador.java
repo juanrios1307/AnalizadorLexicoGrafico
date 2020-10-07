@@ -26,6 +26,7 @@ public class Analizador {
         Analizador a=new Analizador();
 
         //Se lee e inicializan las listas
+        
         a.leerTSimbolos();
         a.leerTOperadores();
         a.leerTOperadoresEspeciales();
