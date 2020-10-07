@@ -13,7 +13,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 
-public class Analizador {
+public class AnalizadorTablaSimbolos {
     //Declaracion de las listas a usar
     ArrayList<String> palabrasClave=new ArrayList<>();
     ArrayList<String> tiposPalabrasClave=new ArrayList<>();
@@ -23,7 +23,7 @@ public class Analizador {
     ArrayList<String> tiposOpEspeciales=new ArrayList<>();
 
     public static void main(String[] args) {
-        Analizador a=new Analizador();
+        AnalizadorTablaSimbolos a=new AnalizadorTablaSimbolos();
 
         //Se lee e inicializan las listas
         
@@ -34,7 +34,6 @@ public class Analizador {
         //Se lee el codigo a analizar y se analiza
         a.leerAnalizarCodigo();
 
-        Analizador.class.getResourceAsStream("assets/tablaSimbolos");
     }//cierre main
 
     //Se abre metodo para leer lista de simbolos
@@ -243,6 +242,9 @@ public class Analizador {
                     //Se corre un ciclo para verificar cadenas entre comillas dobles y simples
                     if(op.equals("\"")){
 
+                        //Se da el tipo
+                        tipo = tiposOperadores.get(busquedaOperadores(op));
+
                         //Se crea simbolo con " para abrir
                         simbolos.add(addSimbolo(op, new Ubicacion(fila, columna), tipo));
 
@@ -263,6 +265,9 @@ public class Analizador {
 
 
                     }else if(op.equals("\'")) {
+
+                        //Se da el tipo
+                        tipo = tiposOperadores.get(busquedaOperadores(op));
 
                         simbolos.add(addSimbolo(op, new Ubicacion(fila, columna), tipo));
 
@@ -311,7 +316,6 @@ public class Analizador {
         }//Cierre While
 
         //retorno y creacion del fichero de la tabla de simbolos
-        System.out.println(simbolos.size());
         tablaCodigo(simbolos);
 
         return simbolos;
@@ -361,19 +365,20 @@ public class Analizador {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             InputStream is = null;
 
-            is=loader.getResourceAsStream("assets/tablaFinal.txt");
+            is=loader.getResourceAsStream("assets/tablaAnalisisSimbolos.txt");
 
            // is = loader.getResourceAsStream("assets/tablaSimbolos.txt");
             OutputStream os=null;
 
 
 
-            w = new FileWriter("tablaFinal.txt");
+            w = new FileWriter("tablaAnalisisSimbolos.txt");
             bw = new BufferedWriter(w);
             wr = new PrintWriter(bw);
 
             //Se escribe la lista de simbolos en archivo
             wr.write(a.toString());
+            System.out.println("Tabla de simbolos creada correctamente...");
 
             //Se cierra archivos
             wr.close();
