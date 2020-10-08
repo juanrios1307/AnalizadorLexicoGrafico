@@ -9,6 +9,7 @@
  package principal;
 
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class AnalizadorTablaTokens {
@@ -16,10 +17,16 @@ public class AnalizadorTablaTokens {
         //Declaracion de las listas a usar
         ArrayList<String> lexemas=new ArrayList<>();
         ArrayList<String> tokens=new ArrayList<>();
+        ArrayList<String> separadores=new ArrayList<>();
         ArrayList<Integer> idTokens=new ArrayList<Integer>();
 
+        File codigoAnalizar;
 
-        public static void main(String[] args) {
+    public AnalizadorTablaTokens() {
+
+    }
+
+    public static void main(String[] args) {
             AnalizadorTablaTokens a=new AnalizadorTablaTokens();
 
             //Se lee e inicializan las listas
@@ -30,25 +37,34 @@ public class AnalizadorTablaTokens {
 
         }//cierre main
 
+        AnalizadorTablaTokens(File codigoAnalizar){
+            this.codigoAnalizar=codigoAnalizar;
+
+            this.leerTLexemas();
+            this.leerTSeparadores();
+
+        }
+
         //Se abre metodo para leer lista de tokens,lexemas y idTokens
         public void leerTLexemas(){
             //Declaracion de variables
+            File archivo = null;
+            FileReader fr = null;
             BufferedReader br = null;
 
             try {
                 // Apertura del fichero y creacion de BufferedReader para poder leer
-                ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                InputStream is = null;
-                is = loader.getResourceAsStream("assets/tablaTokens.txt");
-                br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+                URL ruta=getClass().getResource("/assets/tablaTokens.txt");
+                archivo = new File (ruta.getPath());
+                fr = new FileReader (archivo);
+                br = new BufferedReader(fr);
 
                 // Lectura del fichero y alamcenamiento de palabras clave en DE
                 lexemas(br);
 
                 //Se cierran archivos
                 br.close();
-                is.close();
-
+                fr.close();
 
             }
             catch(Exception e){
@@ -80,19 +96,58 @@ public class AnalizadorTablaTokens {
             }
         }//cierre metodo
 
+    //Se abre metodo para leer lista de operadores
+    public void leerTSeparadores(){
+        //Declaracion de variables
+        BufferedReader br = null;
+        File archivo = null;
+        FileReader fr = null;
+
+        try {
+            // Apertura del fichero y creacion de BufferedReader para poder leer
+            URL ruta=getClass().getResource("/assets/tablaOperadores.txt");
+            archivo = new File (ruta.getPath());
+            fr = new FileReader (archivo);
+            br = new BufferedReader(fr);
+
+            // Lectura del fichero y alamcenamiento de palabras clave en DE
+            separadores(br);
+
+            //Se cierran archivos
+            br.close();
+            fr.close();
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }//cierre metodo
+
+    //Se abre metodo para almacenar operadores de fichero en lista
+    public void separadores(BufferedReader br) throws IOException {
+        //Declaracion de variables
+        String linea;
+
+        //Se lee linea a linea el fichero hasta que encuentra un espacio y guarda la palabra encontrada
+        while((linea=br.readLine())!=null) {
+
+            separadores.add(linea.substring(0,1));
+
+        }//cierre while
+    }//Cierre metodo
 
         //Se crea metodo para leer codigo
         public ArrayList<Token> leerAnalizarCodigo(){
             //Declaracion de variables a usar
             BufferedReader br = null;
+            FileReader fr;
 
             try {
                 // Apertura del fichero y creacion de BufferedReader para poder leer
                 //Creacion de File, FileReader, BufferedReader
-                ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                InputStream is = null;
-                is = loader.getResourceAsStream("assets/codigoAnalizable.txt");
-                br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+
+                fr=new FileReader(codigoAnalizar);
+                br = new BufferedReader(fr);
 
                 // Lectura del fichero
                 ArrayList<Token> tokens=analizador(br);
@@ -128,7 +183,7 @@ public class AnalizadorTablaTokens {
                     StringBuilder tokenAux = new StringBuilder();
 
                     //Corremos un ciclo mientras no encuentre operadores para guardar palabras
-                    while (i < linea.length() && !linea.substring(i, i + 1).equals(" ")) {
+                    while (i < linea.length() && !separadores.contains(linea.substring(i, i + 1)) ) {
 
                         //Agregamos caracteres al stringBuilder
                         tokenAux.append(linea.charAt(i));
@@ -150,6 +205,64 @@ public class AnalizadorTablaTokens {
 
                     //Creamos el token y lo almacenamos en la lista de simbolos y se verifica que no sea vacio
                     if(lexema.length()>0) {
+                        tokensAux.add(createToken(lexema, token, idToken));
+                    }
+
+                    if(separadores.contains(linea.substring(i, i+1)) && !linea.substring(i,i+1).equals(" ")){
+                        lexema=linea.substring(i, i+1 );
+                        token = tokens.get(busquedaLexema(lexema));
+                        idToken = idTokens.get(busquedaLexema(lexema));
+
+
+                        if(lexema.equals("\"")){
+                            tokensAux.add(createToken(lexema, token, idToken));
+
+
+                            StringBuilder cadena=new StringBuilder();
+                            i++;
+
+                            while(i<linea.length() && !linea.substring(i,i+1).equals("\"")){
+                                cadena.append(linea.charAt(i));
+                                i++;
+                            }
+
+                            lexema = cadena.toString();
+
+                            if(lexema.length()>0) {
+                                token = "Cadena_Constante";
+                                idToken= 72 ;
+                                tokensAux.add(createToken(lexema, token, idToken));
+                            }
+
+                            lexema=linea.substring(i, i+1 );
+                            token = tokens.get(busquedaLexema(lexema));
+                            idToken = idTokens.get(busquedaLexema(lexema));
+                        }
+
+                        if(lexema.equals("\'")){
+                            tokensAux.add(createToken(lexema, token, idToken));
+
+
+                            StringBuilder cadena=new StringBuilder();
+                            i++;
+
+                            while(i<linea.length() && !linea.substring(i,i+1).equals("\'")){
+                                cadena.append(linea.charAt(i));
+                                i++;
+                            }
+
+                            lexema = cadena.toString();
+                            if(lexema.length()>0) {
+                                token = "Cadena_Constante";
+                                idToken= 72 ;
+                                tokensAux.add(createToken(lexema, token, idToken));
+                            }
+
+                            lexema=linea.substring(i, i+1 );
+                            token = tokens.get(busquedaLexema(lexema));
+                            idToken = idTokens.get(busquedaLexema(lexema));
+                        }
+
                         tokensAux.add(createToken(lexema, token, idToken));
                     }
 
@@ -182,23 +295,13 @@ public class AnalizadorTablaTokens {
         //Se crea fichero con lista de tokens
         public void tablaCodigo(ArrayList<Token> a){
             //Declaracion de variables para escribir en fichero
-            File f;
             FileWriter w;
             BufferedWriter bw;
-            BufferedReader br;
+
             PrintWriter wr;
 
             try {
                 //Inicializacion de archivos para escritura de tabla
-                ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                InputStream is = null;
-
-                is=loader.getResourceAsStream("assets/tablaAnalisisTokens.txt");
-
-                // is = loader.getResourceAsStream("assets/tablaSimbolos.txt");
-                OutputStream os=null;
-
-
 
                 w = new FileWriter("tablaAnalisisTokens.txt");
                 bw = new BufferedWriter(w);
@@ -219,49 +322,7 @@ public class AnalizadorTablaTokens {
             }
         }//Cierre metodo
 
-        public ArrayList<OperacionAritmetica> analisisOperaciones(ArrayList<Token> tokens, BufferedReader br) throws IOException {
 
-            //Declaro variables
-            String linea;
-            String token = "";
-            int idToken = 0;
-            ArrayList<OperacionAritmetica> operacionAritmeticas = new ArrayList<>();
-
-
-            //Se lee linea por linea del fichero
-            while ((linea = br.readLine()) != null) {
-
-
-                //Se verifica que la linea contenga un operador aritmetico
-                if(linea.contains("+") || linea.contains("-") || linea.contains("*")
-                        || linea.contains("/") || linea.contains("%")){
-
-                    //Se lee caracter por caracter de cada linea
-                    for (int i = 0; i < linea.length(); i++) {
-                        
-
-                        //Corremos un ciclo mientras no encuentre operadores para guardar palabras
-                        while (i < linea.length() && !linea.substring(i, i + 1).equals(" ")) {
-
-
-
-                        }//cierre while
-
-
-
-
-                    }//Cierre for
-                }
-
-
-
-
-            }//Cierre While
-
-            //retorno y creacion del fichero de la tabla de simbolos
-
-            return operacionAritmeticas;
-        }
 
 
     }//Cierre clase

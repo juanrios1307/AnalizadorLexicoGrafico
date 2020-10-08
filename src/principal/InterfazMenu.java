@@ -1,13 +1,13 @@
 package principal;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -52,7 +52,7 @@ public class InterfazMenu extends JFrame {
         etiqueta.setBounds(0, 5, 800, 60);
         etiqueta.setHorizontalAlignment(SwingConstants.CENTER);
         etiqueta.setFont(new Font("arial", 1, 35));
-        etiqueta.setForeground(Color.CYAN);
+        etiqueta.setForeground(Color.BLACK);
         panel.add(etiqueta);
 
     }
@@ -169,14 +169,43 @@ public class InterfazMenu extends JFrame {
     }
 
     public void tablaTokens(File file) throws IOException {
+        AnalizadorTablaTokens tokens=new AnalizadorTablaTokens(file);
 
+        ArrayList<Token> tabla=tokens.leerAnalizarCodigo();
+       // abrirarchivo(file);
+        confirmacionExito(tabla.size(),"Tokens");
     }
 
     public void tablaSimbolos(File file) throws IOException{
+        AnalizadorTablaSimbolos simbolos=new AnalizadorTablaSimbolos(file);
 
+        ArrayList<Simbolo> tabla=simbolos.leerAnalizarCodigo();
+      //  abrirarchivo(file);
+        confirmacionExito(tabla.size(),"Simbolos");
     }
 
     public void tablaExpresionesAritmeticas(File file) throws IOException{
+
+    }
+
+    public void confirmacionExito(int num, String tipo){
+        if(num>0){
+            JOptionPane.showMessageDialog(null, "EL codigo analizado tiene "+num+ " "
+                    , "Tabla de "+tipo+" creada correctamente", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    public void abrirarchivo(File file){
+
+        try {
+
+            Desktop.getDesktop().open(file);
+
+        }catch (IOException ex) {
+
+            System.err.println(ex);
+
+        }
 
     }
 

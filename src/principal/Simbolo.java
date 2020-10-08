@@ -14,6 +14,8 @@ public class Simbolo {
         this.tipos = tipos;
     }
 
+
+
     //Metodo toString para generacion de cadenas y visibilizacion
     @Override
     public String toString() {

@@ -10,6 +10,7 @@
 package principal;
 
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -21,6 +22,21 @@ public class AnalizadorTablaSimbolos {
     ArrayList<String> tiposOperadores=new ArrayList<>();
     ArrayList<String> operadoresEspeciales =new ArrayList<>();
     ArrayList<String> tiposOpEspeciales=new ArrayList<>();
+
+    File codigoAnalizar;
+
+    AnalizadorTablaSimbolos(File codigoAnalizar){
+        this.codigoAnalizar=codigoAnalizar;
+
+        this.leerTOperadores();
+        this.leerTSimbolos();
+        this.leerTOperadoresEspeciales();
+    }
+
+    public AnalizadorTablaSimbolos() {
+
+    }
+
 
     public static void main(String[] args) {
         AnalizadorTablaSimbolos a=new AnalizadorTablaSimbolos();
@@ -40,20 +56,22 @@ public class AnalizadorTablaSimbolos {
     public void leerTSimbolos(){
         //Declaracion de variables
         BufferedReader br = null;
+        File archivo = null;
+        FileReader fr = null;
 
         try {
             // Apertura del fichero y creacion de BufferedReader para poder leer
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            InputStream is = null;
-            is = loader.getResourceAsStream("assets/tablaSimbolos.txt");
-            br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            URL ruta=getClass().getResource("/assets/tablaSimbolos.txt");
+            archivo = new File (ruta.getPath());
+            fr = new FileReader (archivo);
+            br = new BufferedReader(fr);
 
             // Lectura del fichero y alamcenamiento de palabras clave en DE
             palabrasClave(br);
 
             //Se cierran archivos
             br.close();
-            is.close();
+            fr.close();
 
 
         }
@@ -83,21 +101,22 @@ public class AnalizadorTablaSimbolos {
     public void leerTOperadores(){
         //Declaracion de variables
         BufferedReader br = null;
+        File archivo = null;
+        FileReader fr = null;
 
         try {
             // Apertura del fichero y creacion de BufferedReader para poder leer
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            InputStream is = null;
-            is = loader.getResourceAsStream("assets/tablaOperadores.txt");
-            br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-
+            URL ruta=getClass().getResource("/assets/tablaOperadores.txt");
+            archivo = new File (ruta.getPath());
+            fr = new FileReader (archivo);
+            br = new BufferedReader(fr);
 
             // Lectura del fichero y alamcenamiento de palabras clave en DE
             operadores(br);
 
             //Se cierran archivos
             br.close();
-            is.close();
+            fr.close();
 
         }
         catch(Exception e){
@@ -122,20 +141,22 @@ public class AnalizadorTablaSimbolos {
     public void leerTOperadoresEspeciales(){
         //Declaracion de variables
         BufferedReader br = null;
+        File archivo = null;
+        FileReader fr = null;
 
         try {
             // Apertura del fichero y creacion de BufferedReader para poder leer
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            InputStream is = null;
-            is = loader.getResourceAsStream("assets/tablaOperadoresEspeciales.txt");
-            br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-
+            URL ruta=getClass().getResource("/assets/tablaOperadoresEspeciales.txt");
+            archivo = new File (ruta.getPath());
+            fr = new FileReader (archivo);
+            br = new BufferedReader(fr);
 
             // Lectura del fichero y alamcenamiento de palabras clave en DE
             operadoresEspeciales(br);
 
             //Se cierran archivos
             br.close();
+            fr.close();
 
         }
         catch(Exception e){
@@ -157,27 +178,31 @@ public class AnalizadorTablaSimbolos {
     }//Cierre metodo
 
     //Se crea metodo para leer codigo
-    public void leerAnalizarCodigo(){
+    public ArrayList<Simbolo> leerAnalizarCodigo(){
         //Declaracion de variables a usar
         BufferedReader br = null;
+        FileReader fr;
 
         try {
             // Apertura del fichero y creacion de BufferedReader para poder leer
             //Creacion de File, FileReader, BufferedReader
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            InputStream is = null;
-            is = loader.getResourceAsStream("assets/codigoAnalizable.txt");
-            br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            fr=new FileReader(codigoAnalizar);
+            br = new BufferedReader(fr);
+
 
             // Lectura del fichero
             ArrayList<Simbolo> simbolos=analizador(br);
 
             //Se cierran archivos
             br.close();
+            fr.close();
+
+            return simbolos;
 
         } catch(Exception e){
             e.printStackTrace();
         }
+        return null;
     }//Cierre metodo
 
     //Se crea metodo para analizar codigo y leerlo caracter por caracter
@@ -354,24 +379,14 @@ public class AnalizadorTablaSimbolos {
     //Se crea fichero con lista de simbolos
     public void tablaCodigo(ArrayList<Simbolo> a){
         //Declaracion de variables para escribir en fichero
-        File f;
+
         FileWriter w;
         BufferedWriter bw;
-        BufferedReader br;
+
         PrintWriter wr;
 
         try {
             //Inicializacion de archivos para escritura de tabla
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            InputStream is = null;
-
-            is=loader.getResourceAsStream("assets/tablaAnalisisSimbolos.txt");
-
-           // is = loader.getResourceAsStream("assets/tablaSimbolos.txt");
-            OutputStream os=null;
-
-
-
             w = new FileWriter("tablaAnalisisSimbolos.txt");
             bw = new BufferedWriter(w);
             wr = new PrintWriter(bw);
