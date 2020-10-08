@@ -82,7 +82,7 @@ public class AnalizadorTablaTokens {
 
 
         //Se crea metodo para leer codigo
-        public void leerAnalizarCodigo(){
+        public ArrayList<Token> leerAnalizarCodigo(){
             //Declaracion de variables a usar
             BufferedReader br = null;
 
@@ -95,14 +95,17 @@ public class AnalizadorTablaTokens {
                 br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 
                 // Lectura del fichero
-                ArrayList<Token> simbolos=analizador(br);
+                ArrayList<Token> tokens=analizador(br);
 
                 //Se cierran archivos
                 br.close();
 
+                return tokens;
+
             } catch(Exception e){
                 e.printStackTrace();
             }
+            return null;
         }//Cierre metodo
 
         //Se crea metodo para analizar codigo y leerlo caracter por caracter
@@ -215,6 +218,50 @@ public class AnalizadorTablaTokens {
                 e.printStackTrace();
             }
         }//Cierre metodo
+
+        public ArrayList<OperacionAritmetica> analisisOperaciones(ArrayList<Token> tokens, BufferedReader br) throws IOException {
+
+            //Declaro variables
+            String linea;
+            String token = "";
+            int idToken = 0;
+            ArrayList<OperacionAritmetica> operacionAritmeticas = new ArrayList<>();
+
+
+            //Se lee linea por linea del fichero
+            while ((linea = br.readLine()) != null) {
+
+
+                //Se verifica que la linea contenga un operador aritmetico
+                if(linea.contains("+") || linea.contains("-") || linea.contains("*")
+                        || linea.contains("/") || linea.contains("%")){
+
+                    //Se lee caracter por caracter de cada linea
+                    for (int i = 0; i < linea.length(); i++) {
+                        
+
+                        //Corremos un ciclo mientras no encuentre operadores para guardar palabras
+                        while (i < linea.length() && !linea.substring(i, i + 1).equals(" ")) {
+
+
+
+                        }//cierre while
+
+
+
+
+                    }//Cierre for
+                }
+
+
+
+
+            }//Cierre While
+
+            //retorno y creacion del fichero de la tabla de simbolos
+
+            return operacionAritmeticas;
+        }
 
 
     }//Cierre clase
