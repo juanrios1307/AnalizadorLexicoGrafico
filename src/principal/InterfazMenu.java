@@ -192,7 +192,7 @@ public class InterfazMenu extends JFrame {
 
     public void confirmacionExito(int num, String tipo){
         if(num>0){
-            JOptionPane.showMessageDialog(null, "EL codigo analizado tiene "+num+ " "
+            JOptionPane.showMessageDialog(null, "EL codigo analizado tiene "+num+ " "+tipo
                     , "Tabla de "+tipo+" creada correctamente", JOptionPane.INFORMATION_MESSAGE);
         }
     }

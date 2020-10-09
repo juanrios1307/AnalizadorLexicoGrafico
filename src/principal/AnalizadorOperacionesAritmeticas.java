@@ -40,7 +40,7 @@ public class AnalizadorOperacionesAritmeticas {
                     j++;
                 }
 
-                //boolean para verificar que la expresion es continua
+                //boolean para verificar que hay dos operadores entre una constante o identificador
                 boolean seguido=false;
 
                 for(j=0;j<sentencia.size();j++){
@@ -50,27 +50,35 @@ public class AnalizadorOperacionesAritmeticas {
                         opAux.operacion.add(sentencia.get(j));
 
                     if(j>0 && verificarOperadores(sentencia.get(j))){
-                        //Si la expresion es continua se guardara el operador y el siguiente simbolo
+                        //Si no hay dos operadores entre una constante o identificador se agrega el simbolo anterior
                         if(!seguido)
                             opAux.operacion.add(sentencia.get(j-1));
 
+                        //Se agrega el operador ubicado en J
                         opAux.operacion.add(sentencia.get(j));
 
+                        //Si el siguiente simbolo es un ( se guarda toda la expresion adentro de este
+                        //Sino se guarda el siguiente simbolo
                         if(sentencia.get(j+1).simbolo.equals("("))
                             j=guardarExpParentesis(opAux,sentencia,j+1);
                         else
                             opAux.operacion.add(sentencia.get(j+1));
 
 
-
+                        //Se verifica que el simbolo ubicado en J+2 sea un operador y se activa
+                        //el booleano seguido
                        seguido=((j+2)<sentencia.size() && verificarOperadores(sentencia.get(j+2)))?true:false;
 
+                       //Se aumenta en 1 j, ya que ya fue agregado
                         j++;
                     }
                 }
 
+                //Se convierte la estructura operacionAritmetica en un string expresion
                 opAux.expr=convertToString(opAux);
 
+
+                //Se agrea la operacionAritmeticaAuxiliar al arraylist de operaciones
                 operaciones.add(opAux);
 
             }//Cierra IF de sentencia
@@ -82,24 +90,33 @@ public class AnalizadorOperacionesAritmeticas {
         return operaciones;
     }//Cierra metodo
 
+    //Metodo para convertir la estructura OperacionAritmetica a String
     public String convertToString(OperacionAritmetica op){
+        //Se declara el String resultante
         String result="";
+
+        //Se reccorre toda la OperacionAritmetica y se añade cada simbolo al string resultado
         for(int i=0;i<op.operacion.size();i++){
             result+=op.operacion.get(i).simbolo;
             result+=" ";
         }
 
+        //Se cierra el resultado
         return result;
-    }
+    }//Cierra metodo
 
     //Este metodo guardara la expresion que este dentro de un parentesis
     public int guardarExpParentesis(OperacionAritmetica opAux, ArrayList<Simbolo> sentencia , int i ){
+        //Mientras la sentencia entrante sea distinta de ), agregara a la Operacion
+        //el Simbolo del Arraylist
         while(!sentencia.get(i).simbolo.equals(")")){
             opAux.operacion.add(sentencia.get(i));
             i++;
         }
+        //Agrega el parentesis de cierre
         opAux.operacion.add(sentencia.get(i));
 
+        //retorna i-1, para no saltar simbolos, ni agregarlos dos veces
         return i-1;
     }
 

@@ -20,17 +20,21 @@ public class AnalizadorTablaTokens {
         ArrayList<String> separadores=new ArrayList<>();
         ArrayList<Integer> idTokens=new ArrayList<Integer>();
 
+        //Es el archivo del codigo a analizar
         File codigoAnalizar;
 
-    public AnalizadorTablaTokens() {
-
-    }
 
     AnalizadorTablaTokens(File codigoAnalizar){
+        //Inicializa el archivo
         this.codigoAnalizar=codigoAnalizar;
 
+        //Ejecuta dos metodos al construir el objeto
         this.leerTLexemas();
         this.leerTSeparadores();
+
+        System.out.println(lexemas);
+        System.out.println(tokens);
+        System.out.println(idTokens);
 
     }
 
@@ -72,9 +76,18 @@ public class AnalizadorTablaTokens {
                 while(i<linea.length() && linea.charAt(i) != ' '){
                     i++;
                 }
-                lexemas.add(linea.substring(0,i));
+                if(i!=0)
+                    lexemas.add(linea.substring(0,i));
 
                 int j=i+3;
+
+                if(i==0 && linea.charAt(i) == ' '){
+                    lexemas.add(linea.substring(0,1));
+                    j++;
+                }
+
+                //Lee la linea desde que encuentra nuevamente una palabra y guarda el token
+                //y su respectivo idToken
                 while(j<linea.length() && linea.charAt(j) != ' '){
                     j++;
                 }
@@ -117,12 +130,14 @@ public class AnalizadorTablaTokens {
         //Declaracion de variables
         String linea;
 
-        //Se lee linea a linea el fichero hasta que encuentra un espacio y guarda la palabra encontrada
+        //Se lee linea a linea el fichero hasta que encuentra un espacio y guarda el separador encontrado
         while((linea=br.readLine())!=null) {
 
             separadores.add(linea.substring(0,1));
 
         }//cierre while
+
+
     }//Cierre metodo
 
         //Se crea metodo para leer codigo
@@ -144,6 +159,7 @@ public class AnalizadorTablaTokens {
                 //Se cierran archivos
                 br.close();
 
+                //retorna la lista de tokens
                 return tokens;
 
             } catch(Exception e){
@@ -197,66 +213,97 @@ public class AnalizadorTablaTokens {
                         tokensAux.add(createToken(lexema, token, idToken));
                     }
 
-                    if(separadores.contains(linea.substring(i, i+1)) && !linea.substring(i,i+1).equals(" ")){
+                    //Si la linea contiene separadores
+                    if(separadores.contains(linea.substring(i, i+1))){
+                        //asigna el lexema, token y idToken
                         lexema=linea.substring(i, i+1 );
                         token = tokens.get(busquedaLexema(lexema));
                         idToken = idTokens.get(busquedaLexema(lexema));
 
-
+                        //Si el lexema encontrado es " : comilla_doble
                         if(lexema.equals("\"")){
+                            //Agrega el token
                             tokensAux.add(createToken(lexema, token, idToken));
 
-
+                            //Crea un nuevo stringBuilder cadena
                             StringBuilder cadena=new StringBuilder();
+
+                            //Incrementa i
                             i++;
 
+                            //Mientras la linea no contenga " : comilla_doble
                             while(i<linea.length() && !linea.substring(i,i+1).equals("\"")){
+                                //Agrega caracter por caracter al StringBuilder cadena
                                 cadena.append(linea.charAt(i));
+
+                                //Incrementa i
                                 i++;
                             }
 
+                            //Asigna a lexema la cadena encontrada
                             lexema = cadena.toString();
 
+                            //Si encontro una cadena la almacena
                             if(lexema.length()>0) {
                                 token = "Cadena_Constante";
                                 idToken= 72 ;
                                 tokensAux.add(createToken(lexema, token, idToken));
                             }
 
+                            //Almacena la comilla_doble ", junto a su token y id
                             lexema=linea.substring(i, i+1 );
                             token = tokens.get(busquedaLexema(lexema));
                             idToken = idTokens.get(busquedaLexema(lexema));
                         }
 
+                        //Si el lexema encontrado es ' : comilla_simple
                         if(lexema.equals("\'")){
+                            //Agrega el token
                             tokensAux.add(createToken(lexema, token, idToken));
 
-
+                            //Crea un nuevo stringBuilder cadena
                             StringBuilder cadena=new StringBuilder();
+
+                            //Incrementa i
                             i++;
 
+                            //Mientras la linea no contenga " : comilla_doble
                             while(i<linea.length() && !linea.substring(i,i+1).equals("\'")){
+                                //Agrega caracter por caracter al StringBuilder cadena
                                 cadena.append(linea.charAt(i));
+
+                                //Incrementa i
                                 i++;
                             }
 
+                            //Asigna a lexema la cadena encontrada
                             lexema = cadena.toString();
+
+                            //Si encontro una cadena la almacena
                             if(lexema.length()>0) {
                                 token = "Cadena_Constante";
                                 idToken= 72 ;
                                 tokensAux.add(createToken(lexema, token, idToken));
                             }
 
+                            //Almacena la comilla_simple ', junto a su token y id
                             lexema=linea.substring(i, i+1 );
                             token = tokens.get(busquedaLexema(lexema));
                             idToken = idTokens.get(busquedaLexema(lexema));
                         }
 
+                        //Almacena el separador encontrado como token
                         tokensAux.add(createToken(lexema, token, idToken));
-                    }
-
+                    }//Cierre if
 
                 }//Cierre for
+
+                //Almacena un salto de linea
+                String lexema="\\n";
+                token = tokens.get(busquedaLexema(lexema));
+                idToken = idTokens.get(busquedaLexema(lexema));
+
+                tokensAux.add(createToken(lexema, token, idToken));
 
             }//Cierre While
 
