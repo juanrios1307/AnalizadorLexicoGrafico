@@ -32,9 +32,6 @@ public class AnalizadorTablaTokens {
         this.leerTLexemas();
         this.leerTSeparadores();
 
-        System.out.println(lexemas);
-        System.out.println(tokens);
-        System.out.println(idTokens);
 
     }
 
@@ -92,9 +89,10 @@ public class AnalizadorTablaTokens {
                     j++;
                 }
 
+                //Agrega el token y el id, encontrado en la linea
                 tokens.add(linea.substring((i+3),j));
                 idTokens.add(Integer.parseInt(linea.substring(j+3)));
-                //idTokens.add(linea.substring(j+3));
+
             }
         }//cierre metodo
 
