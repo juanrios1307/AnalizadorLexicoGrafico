@@ -5,8 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -197,19 +196,6 @@ public class InterfazMenu extends JFrame {
         }
     }
 
-    public void abrirarchivo(File file){
-
-        try {
-
-            Desktop.getDesktop().open(file);
-
-        }catch (IOException ex) {
-
-            System.err.println(ex);
-
-        }
-
-    }
 
     public static void main(String[] args) {
         InterfazMenu IM = new InterfazMenu();

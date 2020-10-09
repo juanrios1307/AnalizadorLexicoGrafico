@@ -38,23 +38,22 @@ public class AnalizadorTablaTokens {
         //Se abre metodo para leer lista de tokens,lexemas y idTokens
         public void leerTLexemas(){
             //Declaracion de variables
-            File archivo = null;
-            FileReader fr = null;
+
             BufferedReader br = null;
 
             try {
                 // Apertura del fichero y creacion de BufferedReader para poder leer
-                URL ruta=getClass().getResource("/assets/tablaTokens.txt");
-                archivo = new File (ruta.getPath());
-                fr = new FileReader (archivo);
-                br = new BufferedReader(fr);
+                ClassLoader loader = Thread.currentThread().getContextClassLoader();
+                InputStream is = null;
+                is = loader.getResourceAsStream("assets/tablaTokens.txt");
+                br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 
                 // Lectura del fichero y alamcenamiento de palabras clave en DE
                 lexemas(br);
 
                 //Se cierran archivos
                 br.close();
-                fr.close();
+                is.close();
 
             }
             catch(Exception e){
@@ -100,22 +99,23 @@ public class AnalizadorTablaTokens {
     public void leerTSeparadores(){
         //Declaracion de variables
         BufferedReader br = null;
-        File archivo = null;
-        FileReader fr = null;
+
 
         try {
             // Apertura del fichero y creacion de BufferedReader para poder leer
-            URL ruta=getClass().getResource("/assets/tablaOperadores.txt");
-            archivo = new File (ruta.getPath());
-            fr = new FileReader (archivo);
-            br = new BufferedReader(fr);
+
+
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            InputStream is = null;
+            is = loader.getResourceAsStream("assets/tablaOperadores.txt");
+            br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 
             // Lectura del fichero y alamcenamiento de palabras clave en DE
             separadores(br);
 
             //Se cierran archivos
             br.close();
-            fr.close();
+            is.close();
 
         }
         catch(Exception e){
