@@ -70,8 +70,6 @@ public class AnalizadorOperacionesAritmeticas {
                 }
                 operaciones.add(opAux);
 
-
-                System.out.println(opAux);
             }//Cierra IF de sentencia
 
 

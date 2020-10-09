@@ -186,8 +186,8 @@ public class InterfazMenu extends JFrame {
 
     public void tablaExpresionesAritmeticas(File file) throws IOException{
             AnalizadorOperacionesAritmeticas operaciones=new AnalizadorOperacionesAritmeticas();
-            operaciones.analisisOperaciones(file);
-
+            ArrayList<OperacionAritmetica> tabla=operaciones.analisisOperaciones(file);
+            confirmacionExito(tabla.size(),"Operaciones");
     }
 
     public void confirmacionExito(int num, String tipo){
