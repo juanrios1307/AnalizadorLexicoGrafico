@@ -68,6 +68,9 @@ public class AnalizadorOperacionesAritmeticas {
                         j++;
                     }
                 }
+
+                opAux.expr=convertToString(opAux);
+
                 operaciones.add(opAux);
 
             }//Cierra IF de sentencia
@@ -78,6 +81,16 @@ public class AnalizadorOperacionesAritmeticas {
         //retorno y creacion del fichero de la tabla de simbolos
         return operaciones;
     }//Cierra metodo
+
+    public String convertToString(OperacionAritmetica op){
+        String result="";
+        for(int i=0;i<op.operacion.size();i++){
+            result+=op.operacion.get(i).simbolo;
+            result+=" ";
+        }
+
+        return result;
+    }
 
     //Este metodo guardara la expresion que este dentro de un parentesis
     public int guardarExpParentesis(OperacionAritmetica opAux, ArrayList<Simbolo> sentencia , int i ){

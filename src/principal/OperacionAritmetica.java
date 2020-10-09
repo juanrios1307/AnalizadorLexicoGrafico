@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class OperacionAritmetica {
 
     ArrayList<Simbolo> operacion;
+    String expr;
 
     public OperacionAritmetica() {
         operacion=new ArrayList<>();
@@ -12,6 +13,7 @@ public class OperacionAritmetica {
 
     @Override
     public String toString() {
-        return "OperacionAritmetica{\n" + operacion + "}\n";
+        return "OperacionAritmetica{\n" + operacion +
+                "\nExpresión: "+expr+"}\n";
     }
 }

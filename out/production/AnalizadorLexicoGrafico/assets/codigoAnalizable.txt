@@ -9,7 +9,10 @@ publico clase Deposito  {
     privado cadena idDeposito;
 
     publico Deposito (){
-        este(0,0,"");       
+        este(0,0,"");  
+publicoentero=(12*2)+85*diametro-agua+(volumen);
+
+	entero hola = ((2+2)-(3+4))*5-(diametro);
     }
    
     publico Deposito (flotante valor_diametro, flotante valor_altura, cadena valor_idDeposito) {
@@ -46,7 +49,8 @@ publico clase Deposito  {
     publico flotante valorCapacidad () {
         flotante capacidad;
         flotante pi = 3.1416f;
-        capacidad = pi * (diametro/2) * (diametro/2) * altura;
+        capacidad = pi * diametro/2 * (diametro/2) * altura;
+        hola= (55 + 2) + hola -diametro ;
         retorna capacidad;
     } 
     

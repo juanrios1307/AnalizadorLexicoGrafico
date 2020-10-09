@@ -14,7 +14,8 @@
  , 	[ Simbolo:'('|		 | Ubicacion:(13, 39)|		 | Tipos: Operador Agrupacion ; Separador|]		
  , 	[ Simbolo:'volumen'|		 | Ubicacion:(13, 40)|		 | Tipos: identificador|]		
  , 	[ Simbolo:')'|		 | Ubicacion:(13, 47)|		 | Tipos: Operador Agrupacion ; Separador|]		
- ]}
+ ]
+Expresión: ( 12 * 2 ) + 85 * diametro - agua + ( volumen ) }
 , OperacionAritmetica{
 [	[ Simbolo:'('|		 | Ubicacion:(15, 16)|		 | Tipos: Operador Agrupacion ; Separador|]		
  , 	[ Simbolo:'('|		 | Ubicacion:(15, 17)|		 | Tipos: Operador Agrupacion ; Separador|]		
@@ -35,7 +36,8 @@
  , 	[ Simbolo:'('|		 | Ubicacion:(15, 32)|		 | Tipos: Operador Agrupacion ; Separador|]		
  , 	[ Simbolo:'diametro'|		 | Ubicacion:(15, 33)|		 | Tipos: identificador|]		
  , 	[ Simbolo:')'|		 | Ubicacion:(15, 41)|		 | Tipos: Operador Agrupacion ; Separador|]		
- ]}
+ ]
+Expresión: ( ( 2 + 2 ) - ( 3 + 4 ) ) * 5 - ( diametro ) }
 , OperacionAritmetica{
 [	[ Simbolo:'pi'|		 | Ubicacion:(52, 21)|		 | Tipos: identificador|]		
  , 	[ Simbolo:'*'|		 | Ubicacion:(52, 24)|		 | Tipos: Operador Aritmetico ; Separador|]		
@@ -50,7 +52,8 @@
  , 	[ Simbolo:')'|		 | Ubicacion:(52, 50)|		 | Tipos: Operador Agrupacion ; Separador|]		
  , 	[ Simbolo:'*'|		 | Ubicacion:(52, 52)|		 | Tipos: Operador Aritmetico ; Separador|]		
  , 	[ Simbolo:'altura'|		 | Ubicacion:(52, 54)|		 | Tipos: identificador|]		
- ]}
+ ]
+Expresión: pi * diametro / 2 * ( diametro / 2 ) * altura }
 , OperacionAritmetica{
 [	[ Simbolo:'('|		 | Ubicacion:(53, 15)|		 | Tipos: Operador Agrupacion ; Separador|]		
  , 	[ Simbolo:'55'|		 | Ubicacion:(53, 16)|		 | Tipos: identificador|]		
@@ -61,5 +64,6 @@
  , 	[ Simbolo:'hola'|		 | Ubicacion:(53, 26)|		 | Tipos: identificador|]		
  , 	[ Simbolo:'-'|		 | Ubicacion:(53, 31)|		 | Tipos: Operador Aritmetico ; Separador|]		
  , 	[ Simbolo:'diametro'|		 | Ubicacion:(53, 32)|		 | Tipos: identificador|]		
- ]}
+ ]
+Expresión: ( 55 + 2 ) + hola - diametro }
 ]
