@@ -37,21 +37,6 @@ public class AnalizadorTablaSimbolos {
 
     }
 
-
-    public static void main(String[] args) {
-        AnalizadorTablaSimbolos a=new AnalizadorTablaSimbolos();
-
-        //Se lee e inicializan las listas
-        
-        a.leerTSimbolos();
-        a.leerTOperadores();
-        a.leerTOperadoresEspeciales();
-
-        //Se lee el codigo a analizar y se analiza
-        a.leerAnalizarCodigo();
-
-    }//cierre main
-
     //Se abre metodo para leer lista de simbolos
     public void leerTSimbolos(){
         //Declaracion de variables

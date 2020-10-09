@@ -26,24 +26,13 @@ public class AnalizadorTablaTokens {
 
     }
 
-    public static void main(String[] args) {
-            AnalizadorTablaTokens a=new AnalizadorTablaTokens();
+    AnalizadorTablaTokens(File codigoAnalizar){
+        this.codigoAnalizar=codigoAnalizar;
 
-            //Se lee e inicializan las listas
-            a.leerTLexemas();
+        this.leerTLexemas();
+        this.leerTSeparadores();
 
-            //Se lee el codigo a analizar y se analiza
-            a.leerAnalizarCodigo();
-
-        }//cierre main
-
-        AnalizadorTablaTokens(File codigoAnalizar){
-            this.codigoAnalizar=codigoAnalizar;
-
-            this.leerTLexemas();
-            this.leerTSeparadores();
-
-        }
+    }
 
         //Se abre metodo para leer lista de tokens,lexemas y idTokens
         public void leerTLexemas(){
