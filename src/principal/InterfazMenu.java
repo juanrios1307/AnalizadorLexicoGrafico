@@ -157,7 +157,7 @@ public class InterfazMenu extends JFrame {
 
     public void seleccionarArchivo() throws IOException {
         selector.setDialogTitle("Selecciona el codigo a analizar");
-        FileNameExtensionFilter archivo = new FileNameExtensionFilter("TXT","txt" );
+        FileNameExtensionFilter archivo = new FileNameExtensionFilter("txt","txt" );
         selector.setFileFilter(archivo);
         int flag = selector.showOpenDialog(null);
 
