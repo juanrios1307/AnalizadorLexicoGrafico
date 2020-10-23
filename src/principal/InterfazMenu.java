@@ -21,7 +21,7 @@ public class InterfazMenu extends JFrame {
 
 
     public InterfazMenu() {
-        this.setSize(800, 550); // Establecemos el tamaño de la ventana
+        this.setSize(800, 650); // Establecemos el tamaño de la ventana
         this.setDefaultCloseOperation(EXIT_ON_CLOSE); // Acción que se realiza la cerrar la ventana
         this.setTitle("Taller 2"); // Establecmos el titulo de la ventana
         this.setLocationRelativeTo(null); // Establecemos donde aparece la ventana dentro de la pantalla que en este
@@ -122,6 +122,28 @@ public class InterfazMenu extends JFrame {
         });
         panel.add(btnExpresionesAritmeticas);
 
+        JButton btnExpresion = new JButton();
+        btnExpresion.setBounds(155, 505, 500, 60);
+        btnExpresion.setText("Verificar 1 Expresion Aritmetica");
+        btnExpresion.setEnabled(false);
+        btnExpresion.setFont(new Font("arial", 3, 20));
+        btnExpresion.setBackground(Color.darkGray);
+        btnExpresion.setForeground(Color.orange);
+        btnExpresion.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                try {
+                    verificarExpresionAritmetica(codigoAnalizar);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+
+        });
+        panel.add(btnExpresion);
+
         JButton btnFile = new JButton();
         btnFile.setBounds(155, 105, 500, 60);
         btnFile.setText("Cargar un archivo");
@@ -140,6 +162,7 @@ public class InterfazMenu extends JFrame {
                     if(codigoAnalizar.exists()){
                         btnTokens.setEnabled(true);
                         btnSimbolos.setEnabled(true);
+                        btnExpresion.setEnabled(true);
                         btnExpresionesAritmeticas.setEnabled(true);
                     }
                 } catch (IOException ioException) {
@@ -187,6 +210,43 @@ public class InterfazMenu extends JFrame {
             AnalizadorOperacionesAritmeticas operaciones=new AnalizadorOperacionesAritmeticas();
             ArrayList<OperacionAritmetica> tabla=operaciones.analisisOperaciones(file);
             confirmacionExito(tabla.size(),"Operaciones");
+    }
+
+    public void verificarExpresionAritmetica(File file) throws IOException{
+        AnalizadorOperacionesAritmeticas operaciones=new AnalizadorOperacionesAritmeticas();
+        ArrayList<OperacionAritmetica> tabla=operaciones.analisisOperaciones(file);
+        confirmacionExito(tabla.size(),"Operaciones");
+
+
+
+
+        ArrayList<String> expresiones=new ArrayList<>();
+
+        for(int i=0;i<tabla.size();i++){
+            expresiones.add(i+ " : " +tabla.get(i).expr +"\n");
+        }
+        int n=0;
+
+        do {
+            Object seleccion=JOptionPane.showInputDialog(null,
+                    "Operaciones:\n"+expresiones,
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            n=Integer.parseInt(seleccion.toString());
+
+        }while(n>=expresiones.size());
+
+        VerificarExpresion expresion=new VerificarExpresion(tabla.get(n).expr);
+
+        if(expresion.estado){
+            JOptionPane.showMessageDialog(null,
+                    "La expresion analizada contiene errores de sintaxis"
+                    , "Expresion", JOptionPane.ERROR_MESSAGE);
+        }else {
+            JOptionPane.showMessageDialog(null,
+                    "La expresion analizada NO contiene errores de sintaxis"
+                    , "Expresion", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     public void confirmacionExito(int num, String tipo){

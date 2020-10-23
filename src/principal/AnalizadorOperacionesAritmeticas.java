@@ -98,7 +98,6 @@ public class AnalizadorOperacionesAritmeticas {
         //Se reccorre toda la OperacionAritmetica y se añade cada simbolo al string resultado
         for(int i=0;i<op.operacion.size();i++){
             result+=op.operacion.get(i).simbolo;
-            result+=" ";
         }
 
         //Se cierra el resultado
