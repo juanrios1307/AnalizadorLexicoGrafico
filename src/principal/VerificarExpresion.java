@@ -42,7 +42,7 @@ public class VerificarExpresion {
     public void ExpresionPrima()
     {
         if(PosicionCinta<CadenaAnalizada.length()) {
-            LlevarLog("ExpresionPrima");
+
             if (TokenEntrada == '+') {
                 HacerMatch('+');
                 Termino();
@@ -76,7 +76,7 @@ public class VerificarExpresion {
     public void TerminoPrima()
     {
         if(PosicionCinta<CadenaAnalizada.length()) {
-            LlevarLog("TerminoPrima");
+
             if (TokenEntrada == '*') {
                 HacerMatch('*');
                 Factor();
@@ -158,7 +158,7 @@ public class VerificarExpresion {
     public void NumeroPrima()
     {
         if(PosicionCinta<CadenaAnalizada.length()) {
-            LlevarLog("NumeroPrima");
+
             if (TokenEntrada == '1' || TokenEntrada == '2' || TokenEntrada == '3' ||
                     TokenEntrada == '4' || TokenEntrada == '5' || TokenEntrada == '6' ||
                     TokenEntrada == '7' || TokenEntrada == '8' || TokenEntrada == '9'
@@ -174,7 +174,7 @@ public class VerificarExpresion {
     public void Digito()
     {
 
-           LlevarLog("Digito");
+
             if (TokenEntrada=='1' || TokenEntrada=='2' || TokenEntrada=='3' ||
                     TokenEntrada=='4' || TokenEntrada=='5' || TokenEntrada=='6' ||
                     TokenEntrada=='7' || TokenEntrada=='8' ||TokenEntrada=='9'
