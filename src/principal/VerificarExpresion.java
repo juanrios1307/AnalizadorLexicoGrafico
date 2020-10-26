@@ -4,77 +4,74 @@ import java.util.Stack;
 
 public class VerificarExpresion {
 
+    //Se declaran variables a usar
+    //posicion actual de la cadena
     int PosicionCinta ;
-    String DetectadoErrorSintaxis = "0";
+
+    //caracter actual analizado
     Character TokenEntrada ;
+
+    //Cadena a analizar
     String CadenaAnalizada = " ";
+
+    //Abecedario para identificadores
     String abecedario="abcdefghijklmnopqrstuvwxyz";
-    boolean estado=false;
+
+    //Booleano para verificar sintaxis
+    boolean isBad =false;
+
+
     Stack<Character> parentesis=new Stack<Character>();
 
+    //Constructor de la GLC
     public VerificarExpresion(String operacion){
         AnalizarCadena(operacion);
     }
 
-    public void LlevarLog(String mensaje)
-    {
+    //Impresion de que se esta analizando y en donde
+    public void LlevarLog(String mensaje) {
         System.out.println("Para "+TokenEntrada+" "+mensaje);
     }
 
-    public void PresentarMensaje(String mensaje)
-    {
-        System.out.println(mensaje);
+    //Muestra error en caso de haberlo y da isBad como cierto
+    public void PresentarError(String complemento) {
+        System.err.println("ERROR en token: "+TokenEntrada+" "+complemento);
+        isBad =true;
     }
 
-    public void PresentarError(String complemento)
-    {
 
-        PresentarMensaje("ERROR en token: "+TokenEntrada+" "+complemento);
-        estado=true;
-    }
-
-    public void Expresion()
-    {
+    public void Expresion() {
         Termino();
         ExpresionPrima();
     }
 
-    public void ExpresionPrima()
-    {
+    public void ExpresionPrima() {
         if(PosicionCinta<CadenaAnalizada.length()) {
 
             if (TokenEntrada == '+') {
                 HacerMatch('+');
                 Termino();
                 ExpresionPrima();
-            } else {
-                if (TokenEntrada == '-') {
+            } else if (TokenEntrada == '-') {
                     HacerMatch('-');
                     Termino();
                     ExpresionPrima();
-                } else {
 
-                    if (TokenEntrada == ')') {
-                        System.out.println("Nada");
-                        HacerMatch(TokenEntrada);
+            } else
+                PresentarError("ERROR en token: " + TokenEntrada + " ");
+            //No hacer nada: Epsilon
 
-                    } else
-                        PresentarError("ERROR en token: " + TokenEntrada + " ");
-                    //No hacer nada: Epsilon
-                }
-            }
         }
     }
 
-    public void Termino()
-    {
+
+    public void Termino() {
 
         Factor();
         TerminoPrima();
     }
 
-    public void TerminoPrima()
-    {
+    public void TerminoPrima() {
         if(PosicionCinta<CadenaAnalizada.length()) {
 
             if (TokenEntrada == '*') {
@@ -94,13 +91,11 @@ public class VerificarExpresion {
         }
     }
 
-    public void Factor()
-    {
+    public void Factor() {
             if (TokenEntrada=='1' || TokenEntrada=='2' || TokenEntrada=='3' ||
                     TokenEntrada=='4' || TokenEntrada=='5' || TokenEntrada=='6' ||
                     TokenEntrada=='7' || TokenEntrada=='8' ||TokenEntrada=='9'
-                    || TokenEntrada=='0')
-            {
+                    || TokenEntrada=='0') {
                 Numero();
 
             }else if(abecedario.contains(TokenEntrada.toString())) {
@@ -135,8 +130,7 @@ public class VerificarExpresion {
 
     }
 
-    public void HacerMatch(char t)
-    {
+    public void HacerMatch(char t) {
 
         if(PosicionCinta<CadenaAnalizada.length()){
             TokenEntrada = ObtenerToken();
@@ -148,15 +142,13 @@ public class VerificarExpresion {
 
     }
 
-    public void Numero()
-    {
+    public void Numero() {
 
         Digito();
         NumeroPrima();
     }
 
-    public void NumeroPrima()
-    {
+    public void NumeroPrima() {
         if(PosicionCinta<CadenaAnalizada.length()) {
 
             if (TokenEntrada == '1' || TokenEntrada == '2' || TokenEntrada == '3' ||
@@ -171,8 +163,7 @@ public class VerificarExpresion {
         }
     }
 
-    public void Digito()
-    {
+    public void Digito() {
 
 
             if (TokenEntrada=='1' || TokenEntrada=='2' || TokenEntrada=='3' ||
@@ -190,15 +181,13 @@ public class VerificarExpresion {
 
     }
 
-    public void Identificador()
-    {
+    public void Identificador() {
         LlevarLog("Numero");
         Letra();
         IdentificadorPrima();
     }
 
-    public void IdentificadorPrima()
-    {
+    public void IdentificadorPrima() {
         if(PosicionCinta<CadenaAnalizada.length()) {
             // LlevarLog("NumeroPrima");
             if (abecedario.contains(TokenEntrada.toString())) {
@@ -210,36 +199,30 @@ public class VerificarExpresion {
         }
     }
 
-    public void Letra()
-    {
+    public void Letra() {
 
         // LlevarLog("Letra");
-        if (abecedario.contains(TokenEntrada.toString()))
-        {
+        if (abecedario.contains(TokenEntrada.toString())) {
             HacerMatch(TokenEntrada);
-        }
-        else
-        {
+        } else {
             PresentarError("Se esperaba una letra");
         }
 
     }
 
-    public Character ObtenerToken()
-    {
+    public Character ObtenerToken() {
 
         if (PosicionCinta<CadenaAnalizada.length() && CadenaAnalizada.charAt(PosicionCinta) != ' ')
-            PresentarMensaje("Analizando token: "+CadenaAnalizada.charAt(PosicionCinta));
+            System.out.println("Analizando token: "+CadenaAnalizada.charAt(PosicionCinta));
 
         PosicionCinta++;
         return (CadenaAnalizada.charAt(PosicionCinta - 1));
     }
 
-    public void AnalizarCadena(String cadena)
-    {
+    public void AnalizarCadena(String cadena) {
         PosicionCinta = 0;
         CadenaAnalizada = cadena;
-        PresentarMensaje("Verificando sintaxis para: "+CadenaAnalizada+"\n---------------------------------------------------------------");
+        System.out.println("Verificando sintaxis para: "+CadenaAnalizada+"\n---------------------------------------------------------------");
         TokenEntrada = ObtenerToken();
         Expresion();
 

@@ -4,11 +4,9 @@ import java.awt.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -47,7 +45,7 @@ public class InterfazMenu extends JFrame {
     private void colocarEtiquetas() {
 
         JLabel etiqueta = new JLabel();
-        etiqueta.setText("TALLER 2");
+        etiqueta.setText("COMPILADOR");
         etiqueta.setBounds(0, 5, 800, 60);
         etiqueta.setHorizontalAlignment(SwingConstants.CENTER);
         etiqueta.setFont(new Font("arial", 1, 35));
@@ -194,7 +192,7 @@ public class InterfazMenu extends JFrame {
         AnalizadorTablaTokens tokens=new AnalizadorTablaTokens(file);
 
         ArrayList<Token> tabla=tokens.leerAnalizarCodigo();
-       // abrirarchivo(file);
+
         confirmacionExito(tabla.size(),"Tokens");
     }
 
@@ -202,7 +200,7 @@ public class InterfazMenu extends JFrame {
         AnalizadorTablaSimbolos simbolos=new AnalizadorTablaSimbolos(file);
 
         ArrayList<Simbolo> tabla=simbolos.leerAnalizarCodigo();
-      //  abrirarchivo(file);
+
         confirmacionExito(tabla.size(),"Simbolos");
     }
 
@@ -213,10 +211,10 @@ public class InterfazMenu extends JFrame {
     }
 
     public void verificarExpresionAritmetica(File file) throws IOException{
-        AnalizadorOperacionesAritmeticas operaciones=new AnalizadorOperacionesAritmeticas();
-        ArrayList<OperacionAritmetica> tabla=operaciones.analisisOperaciones(file);
-        confirmacionExito(tabla.size(),"Operaciones");
 
+        AnalizadorOperacionesAritmeticas operaciones=new AnalizadorOperacionesAritmeticas();
+
+        ArrayList<OperacionAritmetica> tabla=operaciones.analisisOperaciones(file);
 
 
 
@@ -238,7 +236,7 @@ public class InterfazMenu extends JFrame {
 
         VerificarExpresion expresion=new VerificarExpresion(tabla.get(n).expr);
 
-        if(expresion.estado){
+        if(expresion.isBad){
             JOptionPane.showMessageDialog(null,
                     "La expresion analizada contiene errores de sintaxis"
                     , "Expresion", JOptionPane.ERROR_MESSAGE);

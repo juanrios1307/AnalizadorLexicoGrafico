@@ -109,12 +109,19 @@ public class AnalizadorOperacionesAritmeticas {
         //Mientras la sentencia entrante sea distinta de ), agregara a la Operacion
         //el Simbolo del Arraylist
         while(!sentencia.get(i).simbolo.equals(")")){
-            opAux.operacion.add(sentencia.get(i));
-            i++;
+            if(sentencia.get(i).simbolo.equals(";")){
+                break;
+            }else {
+
+                opAux.operacion.add(sentencia.get(i));
+                i++;
+            }
+
         }
         //Agrega el parentesis de cierre
-        opAux.operacion.add(sentencia.get(i));
-
+        if(sentencia.get(i).simbolo.equals(")")) {
+            opAux.operacion.add(sentencia.get(i));
+        }
         //retorna i-1, para no saltar simbolos, ni agregarlos dos veces
         return i-1;
     }
