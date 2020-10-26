@@ -21,7 +21,7 @@ public class InterfazMenu extends JFrame {
     public InterfazMenu() {
         this.setSize(800, 650); // Establecemos el tamaño de la ventana
         this.setDefaultCloseOperation(EXIT_ON_CLOSE); // Acción que se realiza la cerrar la ventana
-        this.setTitle("Taller 2"); // Establecmos el titulo de la ventana
+        this.setTitle("Compilador"); // Establecmos el titulo de la ventana
         this.setLocationRelativeTo(null); // Establecemos donde aparece la ventana dentro de la pantalla que en este
         // caso es en en el centro
         this.getContentPane().setBackground(Color.WHITE);
