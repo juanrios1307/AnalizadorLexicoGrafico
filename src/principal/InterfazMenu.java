@@ -31,18 +31,21 @@ public class InterfazMenu extends JFrame {
 
     }
 
+
     private void iniciarComponentes() {
         colocarPaneles();
         colocarEtiquetas();
         addTxtAndButton();
     }
 
+    //Se coloca el panel principal en JFrame
     private void colocarPaneles() {
         panel = new JPanel();
         panel.setLayout(null);
         this.getContentPane().add(panel);
     }
 
+    //Se coloca el nombre, el tamaño y la fuente del panel
     private void colocarEtiquetas() {
 
         JLabel etiqueta = new JLabel();
@@ -55,8 +58,11 @@ public class InterfazMenu extends JFrame {
 
     }
 
+    //Se agregan los botones para la funcionalidad del compilador
     private void addTxtAndButton() {
 
+        //Se declara el boton correspondiente a la tablaSimbolos y se setea la ubicacion
+        // el tamaño, la fuente, el color
         JButton btnSimbolos = new JButton();
         btnSimbolos.setBounds(155, 305, 500, 60);
         btnSimbolos.setText("Identificar elementos Tabla Simbolos");
@@ -69,6 +75,7 @@ public class InterfazMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    //Si el boton es presionado llama el metodo tablaSimbolos
                     tablaSimbolos(codigoAnalizar);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
@@ -77,6 +84,9 @@ public class InterfazMenu extends JFrame {
         });
         panel.add(btnSimbolos);
 
+
+        //Se declara el boton correspondiente a la tablaTokens y se setea la ubicacion
+        // el tamaño, la fuente, el color
         JButton btnTokens = new JButton();
         btnTokens.setBounds(155, 405, 500, 60);
         btnTokens.setText("Identificar elementos Tabla Tokens");
@@ -91,6 +101,7 @@ public class InterfazMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
                 try {
+                    //Si el boton es presionado llama el metodo tablaTokens
                     tablaTokens(codigoAnalizar);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
@@ -99,6 +110,8 @@ public class InterfazMenu extends JFrame {
         });
         panel.add(btnTokens);
 
+        //Se declara el boton correspondiente a la tablaExpresionesAritmeticas
+        // y se setea la ubicacion, el tamaño, la fuente, el color
         JButton btnExpresionesAritmeticas = new JButton();
         btnExpresionesAritmeticas.setBounds(155, 205, 500, 60);
         btnExpresionesAritmeticas.setText("Identificar Expresiones Aritmeticas");
@@ -112,6 +125,7 @@ public class InterfazMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 try {
+                    //Si el boton es presionado llama el metodo tablaExpresionesAritmeticas
                     tablaExpresionesAritmeticas(codigoAnalizar);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
@@ -121,6 +135,9 @@ public class InterfazMenu extends JFrame {
         });
         panel.add(btnExpresionesAritmeticas);
 
+
+        //Se declara el boton correspondiente a verificarExpresion
+        // y se setea la ubicacion, el tamaño, la fuente, el color
         JButton btnExpresion = new JButton();
         btnExpresion.setBounds(155, 505, 500, 60);
         btnExpresion.setText("Verificar 1 Expresion Aritmetica");
@@ -134,6 +151,7 @@ public class InterfazMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 try {
+                    //Si el boton es presionado llama el metodo verificarExpresion
                     verificarExpresionAritmetica(codigoAnalizar);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
@@ -143,6 +161,8 @@ public class InterfazMenu extends JFrame {
         });
         panel.add(btnExpresion);
 
+        //Se declara el boton correspondiente a cargarArchivo
+        // y se setea la ubicacion, el tamaño, la fuente, el color
         JButton btnFile = new JButton();
         btnFile.setBounds(155, 105, 500, 60);
         btnFile.setText("Cargar un archivo");
@@ -156,8 +176,11 @@ public class InterfazMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
                 try {
+
+                    //Si el boton es presionado llama el metodo seleccionarArchvio
                     seleccionarArchivo();
 
+                    //Si el archivo existe habilita el resto de botones correspondientes
                     if(codigoAnalizar.exists()){
                         btnTokens.setEnabled(true);
                         btnSimbolos.setEnabled(true);
@@ -172,6 +195,8 @@ public class InterfazMenu extends JFrame {
         });
         panel.add(btnFile);
 
+        //Se declara el boton correspondiente a AbrirTabla
+        // y se setea la ubicacion, el tamaño, la fuente, el color
         JButton btnOpenFile = new JButton();
         btnOpenFile.setBounds(155, 605, 500, 60);
         btnOpenFile.setText("Abrir una tabla");
@@ -183,7 +208,7 @@ public class InterfazMenu extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
+                //Si el boton es presionado llama el metodo abrirArchivo
                 abrirarchivo();
 
             }
@@ -192,6 +217,7 @@ public class InterfazMenu extends JFrame {
 
 
     }
+
 
     public void seleccionarArchivo() throws IOException {
         selector.setDialogTitle("Selecciona el codigo a analizar");
@@ -253,8 +279,6 @@ public class InterfazMenu extends JFrame {
         AnalizadorOperacionesAritmeticas operaciones=new AnalizadorOperacionesAritmeticas();
 
         ArrayList<OperacionAritmetica> tabla=operaciones.analisisOperaciones(file);
-
-
 
         ArrayList<String> expresiones=new ArrayList<>();
 
