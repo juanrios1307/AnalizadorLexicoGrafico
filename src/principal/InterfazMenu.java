@@ -17,16 +17,17 @@ public class InterfazMenu extends JFrame {
     private final JFileChooser selector = new JFileChooser();
     private File codigoAnalizar;
 
-
+    //Se crea constructor de la intefaz menu donde se inicializan tanto la ventana y se definen sus tamaños
+    //como los diferentes componentes presentes en el menu.
     public InterfazMenu() {
-        this.setSize(800, 650); // Establecemos el tamaño de la ventana
+        this.setSize(800, 725); // Establecemos el tamaño de la ventana
         this.setDefaultCloseOperation(EXIT_ON_CLOSE); // Acción que se realiza la cerrar la ventana
         this.setTitle("Compilador"); // Establecmos el titulo de la ventana
         this.setLocationRelativeTo(null); // Establecemos donde aparece la ventana dentro de la pantalla que en este
         // caso es en en el centro
         this.getContentPane().setBackground(Color.WHITE);
 
-        iniciarComponentes();
+        iniciarComponentes();//Se llama al metodo que inicia los diferentes panles, etiquetas y botones de la interfaz
 
     }
 
@@ -171,10 +172,26 @@ public class InterfazMenu extends JFrame {
         });
         panel.add(btnFile);
 
+        JButton btnOpenFile = new JButton();
+        btnOpenFile.setBounds(155, 605, 500, 60);
+        btnOpenFile.setText("Abrir una tabla");
+        btnOpenFile.setEnabled(true);
+        btnOpenFile.setBackground(Color.darkGray);
+        btnOpenFile.setForeground(Color.orange);
+        btnOpenFile.setFont(new Font("arial", 3, 20));
+        btnOpenFile.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                abrirarchivo();
+
+            }
+        });
+        panel.add(btnOpenFile);
+
 
     }
-
-    //Metodo recibirImagen
 
     public void seleccionarArchivo() throws IOException {
         selector.setDialogTitle("Selecciona el codigo a analizar");
@@ -186,6 +203,27 @@ public class InterfazMenu extends JFrame {
             codigoAnalizar = selector.getSelectedFile();
 
         }
+    }
+
+    public void abrirarchivo(){
+
+        try {
+            selector.setDialogTitle("Selecciona tabla a visualizar");
+            FileNameExtensionFilter archivo = new FileNameExtensionFilter("txt","txt" );
+            selector.setFileFilter(archivo);
+            int flag = selector.showOpenDialog(null);
+
+            if(flag == JFileChooser.APPROVE_OPTION) {
+                Desktop.getDesktop().open(selector.getSelectedFile());
+            }
+
+
+        }catch (IOException e) {
+
+            System.err.println(e);
+
+        }
+
     }
 
     public void tablaTokens(File file) throws IOException {
