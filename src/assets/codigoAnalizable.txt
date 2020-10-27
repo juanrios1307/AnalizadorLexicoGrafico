@@ -10,7 +10,7 @@ publico clase Deposito  {
 
     publico Deposito (){
         este(0,0,"");  
-publicoentero=(12*2)+85*diametro-agua+(volumen);
+publicoentero=(12*2+85*diametro-agua+(volumen);
 
 	entero hola = ((2+2)-(3+4))*5-(diametro);
     }

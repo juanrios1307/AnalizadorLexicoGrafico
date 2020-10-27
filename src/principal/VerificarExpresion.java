@@ -20,6 +20,8 @@ public class VerificarExpresion {
     //Booleano para verificar sintaxis
     boolean isBad =false;
 
+    Stack<Character> parentesis=new Stack<Character>();
+
     //Constructor de la GLC
     public VerificarExpresion(String operacion){
         AnalizarCadena(operacion);
@@ -31,65 +33,9 @@ public class VerificarExpresion {
         isBad =true;
     }
 
-    //Se verifica antes de usar la GLC la ubicacion de los parentesis,
-    //de que esten en el orden que deben estar
-    public boolean VerificarParentesis(){
-        //Se declara Pila para almacenamiento
-        Stack<Character> parentesis=new Stack<Character>();
-
-        //Se inicializa contador y empieza un while a rrecorrer la cadena
-        int i=0;
-        while(i<CadenaAnalizada.length()) {
-            //Se verifican los parentesis en la posicion i
-            switch (verificarP(String.valueOf(CadenaAnalizada.charAt(i)))) {
-                case 1:
-                    //Caso 1 abre parentesis
-                    parentesis.push(CadenaAnalizada.charAt(i));
-                    break;
-                case 2:
-                    //Caso 2 cierra parentesis
-
-                    //Si no hay parentesis que abre, retorna falso
-                    if(parentesis.isEmpty()) {
-                        return false;
-                    }else if(parentesis.peek().equals('(')) {
-                        //Elimina el ultimo parentesis que abria
-                        parentesis.pop();
-                    }
-                    break;
-
-                default:
-                    break;
-            }
-
-            //Incrementa el i
-            i++;
-
-        }
-
-        //Si no  sobran parentesis retorna verdadero
-        if(parentesis.isEmpty()) {
-            return true;
-        }else { //En otro caso retorna falso
-            return false;
-        }
-
-    }
-
-
-    //Verifica si el parentesis abre cierra, o no  es parentesis
-    public static int verificarP(String msg) {
-        if(msg.equals("("))
-            return 1;
-        else if(msg.equals(")"))
-            return 2;
-        else
-            return 10;
-    }
-
-
-    //Metodo expresion llama a Termin y ExpresionPrima
+    //Metodo expresion llama a Termino y ExpresionPrima
     public void Expresion() {
+
         Termino();
         ExpresionPrima();
     }//Cierra Expresion
@@ -97,7 +43,7 @@ public class VerificarExpresion {
     //Metodo Expresion prima
     public void ExpresionPrima() {
 
-        if(PosicionCinta<CadenaAnalizada.length()) {
+
             //Si el tokenEntrada es + HaceMatch y llama a termino y tambien a ExpresionPrima
             if (TokenEntrada == '+') {
                 HacerMatch('+');
@@ -111,11 +57,21 @@ public class VerificarExpresion {
                 //Si el tokenEntrada es - HaceMatch y llama a termino y tambien a ExpresionPrima
             } else {
 
-                //No hacer nada: Epsilon
+                //En expresion prima se verifica si hay un parentesis de cierre
+                // y no hay parentesis de inicio, ya que cuando no hay parentesis de inicio
+                //el TokenEntrada = ) entrara a ExpresionPrima y alli se verificara
+                if(TokenEntrada==')' && parentesis.isEmpty()){
+                    PresentarError("ERROR en token: "+TokenEntrada+" ");
+                }else{
+
+                    //No hacer nada: Epsilon
+                }
+
+
             }
 
 
-        }
+
     }//Cierra ExpresionPrima
 
     //El metodo termino llama a Factor y TerminoPrima
@@ -127,7 +83,7 @@ public class VerificarExpresion {
 
     public void TerminoPrima() {
 
-        if(PosicionCinta<CadenaAnalizada.length()) {
+
             //Si el tokenEntrada es * HaceMatch y llama a Factor y tambien a TerminoPrima
             if (TokenEntrada == '*') {
                 HacerMatch('*');
@@ -143,7 +99,7 @@ public class VerificarExpresion {
 
             }
 
-        }
+
     }//Cierra TerminoPrima
 
     //El metodo Factor verifica si el tokenEntrada es parentesis, numero o identificador
@@ -151,14 +107,14 @@ public class VerificarExpresion {
 
         //Si el Token es ( haceMatch llama a Expresion y cierra )
         if(TokenEntrada=='('){
+            parentesis.push(TokenEntrada);
             HacerMatch(TokenEntrada);
 
             Expresion();
 
             if(TokenEntrada==')'){
-
                 HacerMatch(TokenEntrada);
-
+                parentesis.pop();
             }else{
                 //Si el Token luego de la expresion no es parentesis presenta error
                 PresentarError("Se esperaba parentesis de cierre");
@@ -176,6 +132,9 @@ public class VerificarExpresion {
 
             Identificador();
 
+        }else {
+            PresentarError("Error de FACTOR");
+            HacerMatch(TokenEntrada);
         }
 
     }//Cierra factor
@@ -184,9 +143,7 @@ public class VerificarExpresion {
     //La longitud de la CadenaAnalizada
     public void HacerMatch(char t) {
 
-        if(PosicionCinta<CadenaAnalizada.length()) {
             TokenEntrada = ObtenerToken();
-        }
 
     }
 
@@ -200,7 +157,7 @@ public class VerificarExpresion {
 
 
     public void NumeroPrima() {
-        if(PosicionCinta<CadenaAnalizada.length()) {
+
 
             //NumeroPrima verifica si hay un numero y llama a Digito y a NumeroPrima
             if (TokenEntrada == '1' || TokenEntrada == '2' || TokenEntrada == '3' ||
@@ -212,7 +169,7 @@ public class VerificarExpresion {
             } else {
                 //No hacer nada: Epsilon
             }
-        }
+
     }//Cierra NumeroPrima
 
 
@@ -241,7 +198,7 @@ public class VerificarExpresion {
     }//Cierra Identificador
 
     public void IdentificadorPrima() {
-        if(PosicionCinta<CadenaAnalizada.length()) {
+
             //IdentificadorPrima verifica si hay una Letra y llama a Letra y a IdentificadorPrima
             if (abecedario.contains(TokenEntrada.toString())) {
                 Letra();
@@ -249,7 +206,7 @@ public class VerificarExpresion {
             } else {
                 //No hacer nada: Epsilon
             }
-        }
+
     }//Cierra IdentificadorPrima
 
     public void Letra() {
@@ -265,11 +222,12 @@ public class VerificarExpresion {
 
     //ObtenerToken incrementa PosicionCinta y retorna la CadenaAnalizada en una posicion menor
     public Character ObtenerToken() {
-
-        if (PosicionCinta<CadenaAnalizada.length() && CadenaAnalizada.charAt(PosicionCinta) != ' ')
-
-        PosicionCinta++;
-        return (CadenaAnalizada.charAt(PosicionCinta - 1));
+        if(PosicionCinta < CadenaAnalizada.length()) {
+            PosicionCinta++;
+            return (CadenaAnalizada.charAt(PosicionCinta - 1));
+        }else{
+            return ' ';
+        }
     }//Cierra ObtenerToken
 
     //AnalizarCadena recibe un String, e inicializa las variables
@@ -278,13 +236,8 @@ public class VerificarExpresion {
         CadenaAnalizada = cadena;
         TokenEntrada = ObtenerToken();
 
-        //Primero se verifican los parentesis y si estos cumplen va a Expresion
-        if(VerificarParentesis()){
-            Expresion();
-        }else{
-            //En otro caso no analiza la expresion y da un estado de no aceptacion
-            isBad=true;
-        }
+        //La GLC comienza con <EXPRESION>
+        Expresion();
 
 
     }//Cierra AnalizarCadena

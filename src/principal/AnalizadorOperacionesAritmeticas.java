@@ -108,18 +108,13 @@ public class AnalizadorOperacionesAritmeticas {
     public int guardarExpParentesis(OperacionAritmetica opAux, ArrayList<Simbolo> sentencia , int i ){
         //Mientras la sentencia entrante sea distinta de ), agregara a la Operacion
         //el Simbolo del Arraylist
-        while(!sentencia.get(i).simbolo.equals(")")){
-            if(sentencia.get(i).simbolo.equals(";")){
-                break;
-            }else {
-
+        while(i<sentencia.size() && !sentencia.get(i).simbolo.equals(")")){
                 opAux.operacion.add(sentencia.get(i));
                 i++;
-            }
 
         }
         //Agrega el parentesis de cierre
-        if(sentencia.get(i).simbolo.equals(")")) {
+        if(i<sentencia.size() && sentencia.get(i).simbolo.equals(")")) {
             opAux.operacion.add(sentencia.get(i));
         }
         //retorna i-1, para no saltar simbolos, ni agregarlos dos veces
