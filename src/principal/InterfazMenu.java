@@ -20,7 +20,7 @@ public class InterfazMenu extends JFrame {
     //Se crea constructor de la intefaz menu donde se inicializan tanto la ventana y se definen sus tamaños
     //como los diferentes componentes presentes en el menu.
     public InterfazMenu() {
-        this.setSize(800, 725); // Establecemos el tamaño de la ventana
+        this.setSize(800, 900); // Establecemos el tamaño de la ventana
         this.setDefaultCloseOperation(EXIT_ON_CLOSE); // Acción que se realiza la cerrar la ventana
         this.setTitle("Compilador"); // Establecmos el titulo de la ventana
         this.setLocationRelativeTo(null); // Establecemos donde aparece la ventana dentro de la pantalla que en este
@@ -161,6 +161,31 @@ public class InterfazMenu extends JFrame {
         });
         panel.add(btnExpresion);
 
+        //Se declara el boton correspondiente a verificarExpresion
+        // y se setea la ubicacion, el tamaño, la fuente, el color
+        JButton btnConversion = new JButton();
+        btnConversion.setBounds(155, 605, 500, 60);
+        btnConversion.setText("Prefijo y Posfijo de una expresion");
+        btnConversion.setEnabled(false);
+        btnConversion.setFont(new Font("arial", 3, 20));
+        btnConversion.setBackground(Color.darkGray);
+        btnConversion.setForeground(Color.orange);
+        btnConversion.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                try {
+                    //Si el boton es presionado llama el metodo verificarExpresion
+                    conversion(codigoAnalizar);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+
+        });
+        panel.add(btnConversion);
+
         //Se declara el boton correspondiente a cargarArchivo
         // y se setea la ubicacion, el tamaño, la fuente, el color
         JButton btnFile = new JButton();
@@ -184,7 +209,7 @@ public class InterfazMenu extends JFrame {
                     if(codigoAnalizar.exists()){
                         btnTokens.setEnabled(true);
                         btnSimbolos.setEnabled(true);
-                        btnExpresion.setEnabled(true);
+                        btnConversion.setEnabled(true);
                         btnExpresionesAritmeticas.setEnabled(true);
                     }
                 } catch (IOException ioException) {
@@ -198,7 +223,7 @@ public class InterfazMenu extends JFrame {
         //Se declara el boton correspondiente a AbrirTabla
         // y se setea la ubicacion, el tamaño, la fuente, el color
         JButton btnOpenFile = new JButton();
-        btnOpenFile.setBounds(155, 605, 500, 60);
+        btnOpenFile.setBounds(155, 705, 500, 60);
         btnOpenFile.setText("Abrir una tabla");
         btnOpenFile.setEnabled(true);
         btnOpenFile.setBackground(Color.darkGray);
@@ -307,6 +332,40 @@ public class InterfazMenu extends JFrame {
                     "La expresion analizada NO contiene errores de sintaxis"
                     , "Expresion", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+
+    public void conversion(File file) throws IOException{
+        AnalizadorOperacionesAritmeticas operaciones=new AnalizadorOperacionesAritmeticas();
+
+        ArrayList<OperacionAritmetica> tabla=operaciones.analisisOperaciones(file);
+
+        ArrayList<String> expresiones=new ArrayList<>();
+
+        for(int i=0;i<tabla.size();i++){
+            expresiones.add(i+ " : " +tabla.get(i).expr +"\n");
+        }
+        int n=0;
+
+        do {
+            Object seleccion=JOptionPane.showInputDialog(null,
+                    "Operaciones:\n"+expresiones,
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            n=Integer.parseInt(seleccion.toString());
+
+        }while(n>=expresiones.size());
+
+        ConversionInfijoPosPre expresion=new ConversionInfijoPosPre(tabla.get(n).expr);
+
+
+        JOptionPane.showMessageDialog(null,
+                expresion.prefijo.toString()
+                    , "Prefijo", JOptionPane.ERROR_MESSAGE);
+
+        JOptionPane.showMessageDialog(null,
+                expresion.posfijo.toString()
+                , "Posfijo", JOptionPane.ERROR_MESSAGE);
+
     }
 
     public void confirmacionExito(int num, String tipo){
