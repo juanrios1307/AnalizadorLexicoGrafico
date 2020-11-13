@@ -64,7 +64,7 @@ public class InterfazMenu extends JFrame {
         //Se declara el boton correspondiente a la tablaSimbolos y se setea la ubicacion
         // el tamaño, la fuente, el color
         JButton btnSimbolos = new JButton();
-        btnSimbolos.setBounds(155, 305, 500, 60);
+        btnSimbolos.setBounds(155, 245, 500, 40);
         btnSimbolos.setText("Identificar elementos Tabla Simbolos");
         btnSimbolos.setEnabled(false);
         btnSimbolos.setFont(new Font("arial", 3, 20));
@@ -88,7 +88,7 @@ public class InterfazMenu extends JFrame {
         //Se declara el boton correspondiente a la tablaTokens y se setea la ubicacion
         // el tamaño, la fuente, el color
         JButton btnTokens = new JButton();
-        btnTokens.setBounds(155, 405, 500, 60);
+        btnTokens.setBounds(155, 345, 500, 40);
         btnTokens.setText("Identificar elementos Tabla Tokens");
 
         btnTokens.setEnabled(false);
@@ -113,7 +113,7 @@ public class InterfazMenu extends JFrame {
         //Se declara el boton correspondiente a la tablaExpresionesAritmeticas
         // y se setea la ubicacion, el tamaño, la fuente, el color
         JButton btnExpresionesAritmeticas = new JButton();
-        btnExpresionesAritmeticas.setBounds(155, 205, 500, 60);
+        btnExpresionesAritmeticas.setBounds(155, 145, 500, 40);
         btnExpresionesAritmeticas.setText("Identificar Expresiones Aritmeticas");
         btnExpresionesAritmeticas.setEnabled(false);
         btnExpresionesAritmeticas.setFont(new Font("arial", 3, 20));
@@ -139,7 +139,7 @@ public class InterfazMenu extends JFrame {
         //Se declara el boton correspondiente a verificarExpresion
         // y se setea la ubicacion, el tamaño, la fuente, el color
         JButton btnExpresion = new JButton();
-        btnExpresion.setBounds(155, 505, 500, 60);
+        btnExpresion.setBounds(155, 445, 500, 40);
         btnExpresion.setText("Verificar 1 Expresion Aritmetica");
         btnExpresion.setEnabled(false);
         btnExpresion.setFont(new Font("arial", 3, 20));
@@ -164,7 +164,7 @@ public class InterfazMenu extends JFrame {
         //Se declara el boton correspondiente a verificarExpresion
         // y se setea la ubicacion, el tamaño, la fuente, el color
         JButton btnConversion = new JButton();
-        btnConversion.setBounds(155, 605, 500, 60);
+        btnConversion.setBounds(155, 545, 500, 40);
         btnConversion.setText("Prefijo y Posfijo de una expresion");
         btnConversion.setEnabled(false);
         btnConversion.setFont(new Font("arial", 3, 20));
@@ -189,7 +189,7 @@ public class InterfazMenu extends JFrame {
         //Se declara el boton correspondiente a cargarArchivo
         // y se setea la ubicacion, el tamaño, la fuente, el color
         JButton btnFile = new JButton();
-        btnFile.setBounds(155, 105, 500, 60);
+        btnFile.setBounds(155, 65, 500, 40);
         btnFile.setText("Cargar un archivo");
         btnFile.setEnabled(true);
         btnFile.setBackground(Color.darkGray);
@@ -224,7 +224,7 @@ public class InterfazMenu extends JFrame {
         //Se declara el boton correspondiente a AbrirTabla
         // y se setea la ubicacion, el tamaño, la fuente, el color
         JButton btnOpenFile = new JButton();
-        btnOpenFile.setBounds(155, 705, 500, 60);
+        btnOpenFile.setBounds(155, 645, 500, 40);
         btnOpenFile.setText("Abrir una tabla");
         btnOpenFile.setEnabled(true);
         btnOpenFile.setBackground(Color.darkGray);
