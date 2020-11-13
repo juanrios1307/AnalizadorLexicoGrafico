@@ -210,6 +210,7 @@ public class InterfazMenu extends JFrame {
                         btnTokens.setEnabled(true);
                         btnSimbolos.setEnabled(true);
                         btnConversion.setEnabled(true);
+                        btnExpresion.setEnabled(true);
                         btnExpresionesAritmeticas.setEnabled(true);
                     }
                 } catch (IOException ioException) {
@@ -341,9 +342,17 @@ public class InterfazMenu extends JFrame {
 
         ArrayList<String> expresiones=new ArrayList<>();
 
+
         for(int i=0;i<tabla.size();i++){
-            expresiones.add(i+ " : " +tabla.get(i).expr +"\n");
+            VerificarExpresion expresion=new VerificarExpresion(tabla.get(i).expr);
+
+            if(expresion.isBad){
+
+            }else {
+                expresiones.add(i+ " : " +tabla.get(i).expr+"\n");
+            }
         }
+
         int n=0;
 
         do {
@@ -359,12 +368,9 @@ public class InterfazMenu extends JFrame {
 
 
         JOptionPane.showMessageDialog(null,
-                expresion.prefijo.toString()
-                    , "Prefijo", JOptionPane.ERROR_MESSAGE);
+                expresion.prefijo.toString()+"\n"+ expresion.posfijo.toString()
+                    , "Notación prefija y posfija", JOptionPane.ERROR_MESSAGE);
 
-        JOptionPane.showMessageDialog(null,
-                expresion.posfijo.toString()
-                , "Posfijo", JOptionPane.ERROR_MESSAGE);
 
     }
 
