@@ -341,6 +341,7 @@ public class InterfazMenu extends JFrame {
         ArrayList<OperacionAritmetica> tabla=operaciones.analisisOperaciones(file);
 
         ArrayList<String> expresiones=new ArrayList<>();
+        ArrayList<Integer> indexValidos=new ArrayList<>();
 
 
         for(int i=0;i<tabla.size();i++){
@@ -349,7 +350,9 @@ public class InterfazMenu extends JFrame {
             if(expresion.isBad){
 
             }else {
+
                 expresiones.add(i+ " : " +tabla.get(i).expr+"\n");
+                indexValidos.add(i);
             }
         }
 
@@ -362,14 +365,14 @@ public class InterfazMenu extends JFrame {
 
             n=Integer.parseInt(seleccion.toString());
 
-        }while(n>=expresiones.size());
+        }while(!indexValidos.contains(n));
 
         ConversionInfijoPosPre expresion=new ConversionInfijoPosPre(tabla.get(n).expr);
 
 
         JOptionPane.showMessageDialog(null,
-                expresion.prefijo.toString()+"\n"+ expresion.posfijo.toString()
-                    , "Notación prefija y posfija", JOptionPane.ERROR_MESSAGE);
+                "Prefija: "+expresion.prefijo.toString()+"\nPosfija: "+ expresion.posfijo.toString()
+                    , "Notación prefija y posfija", JOptionPane.INFORMATION_MESSAGE);
 
 
     }
