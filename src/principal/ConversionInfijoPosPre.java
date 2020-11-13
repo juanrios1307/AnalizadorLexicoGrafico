@@ -32,11 +32,7 @@ public class ConversionInfijoPosPre {
         AnalizarCadena(operacion);
     }
 
-    //Muestra error en caso de haberlo y da isBad como cierto
-    public void PresentarError(String complemento) {
-        System.out.println("ERROR en token: "+TokenEntrada+" "+complemento);
-        isBad =true;
-    }
+
 
     //Metodo expresion llama a Termino y ExpresionPrima
     public void Expresion() {
@@ -51,34 +47,35 @@ public class ConversionInfijoPosPre {
 
             //Si el tokenEntrada es + HaceMatch y llama a termino y tambien a ExpresionPrima
             if (TokenEntrada == '+') {
+
+                prefijo.add('+');
+
                 HacerMatch('+');
+
                 Termino();
 
-                prefijo.add(TokenEntrada);
-                posfijo.add(TokenEntrada);
+
+                posfijo.add('+');
 
                 ExpresionPrima();
 
             } else if (TokenEntrada == '-') {
+
+                prefijo.add('-');
+
                 HacerMatch('-');
+
                 Termino();
 
-                prefijo.add(TokenEntrada);
-                posfijo.add(TokenEntrada);
+
+                posfijo.add('-');
 
                 ExpresionPrima();
                 //Si el tokenEntrada es - HaceMatch y llama a termino y tambien a ExpresionPrima
             } else {
 
-                //En expresion prima se verifica si hay un parentesis de cierre
-                // y no hay parentesis de inicio, ya que cuando no hay parentesis de inicio
-                //el TokenEntrada = ) entrara a ExpresionPrima y alli se verificara
-                if(TokenEntrada==')' && parentesis.isEmpty()){
-                    PresentarError("ERROR en token: "+TokenEntrada+" ");
-                }else{
 
                     //No hacer nada: Epsilon
-                }
 
 
             }
@@ -99,19 +96,27 @@ public class ConversionInfijoPosPre {
 
             //Si el tokenEntrada es * HaceMatch y llama a Factor y tambien a TerminoPrima
             if (TokenEntrada == '*') {
+
+                prefijo.add('*');
+
                 HacerMatch('*');
+
                 Factor();
 
-                prefijo.add(TokenEntrada);
-                posfijo.add(TokenEntrada);
+
+                posfijo.add('*');
 
                 TerminoPrima();
             } else if (TokenEntrada == '/') {
+
+                prefijo.add('/');
+
                 HacerMatch('/');
+
                 Factor();
 
-                prefijo.add(TokenEntrada);
-                posfijo.add(TokenEntrada);
+
+                posfijo.add('/');
 
                 TerminoPrima();
                 //Si el tokenEntrada es / HaceMatch y llama a Factor y tambien a TerminoPrima
@@ -130,8 +135,6 @@ public class ConversionInfijoPosPre {
         if(TokenEntrada=='('){
             parentesis.push(TokenEntrada);
 
-            prefijo.add(TokenEntrada);
-            posfijo.add(TokenEntrada);
 
             HacerMatch(TokenEntrada);
 
@@ -140,14 +143,10 @@ public class ConversionInfijoPosPre {
 
             if(TokenEntrada==')'){
 
-                prefijo.add(TokenEntrada);
-                posfijo.add(TokenEntrada);
-
                 HacerMatch(TokenEntrada);
                 parentesis.pop();
             }else{
-                //Si el Token luego de la expresion no es parentesis presenta error
-                PresentarError("Se esperaba parentesis de cierre");
+
             }
 
             //Si el token es un numero llama a numero
@@ -163,7 +162,6 @@ public class ConversionInfijoPosPre {
             Identificador();
 
         }else {
-            PresentarError("Error de FACTOR");
             HacerMatch(TokenEntrada);
         }
 
@@ -217,7 +215,7 @@ public class ConversionInfijoPosPre {
             }
             else
             {
-                PresentarError("Se esperaba un digito");
+
             }
 
     }//Cierra Digito
@@ -251,7 +249,7 @@ public class ConversionInfijoPosPre {
 
             HacerMatch(TokenEntrada);
         } else {
-            PresentarError("Se esperaba una letra");
+
         }
 
     }//Cierra Letra
