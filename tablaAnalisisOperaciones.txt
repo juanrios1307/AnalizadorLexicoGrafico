@@ -1,7 +1,7 @@
 [OperacionAritmetica{
 [	[ Simbolo:'('|		 | Ubicacion:(13, 15)|		 | Tipos: Operador Agrupacion ; Separador|]		
  , 	[ Simbolo:'12'|		 | Ubicacion:(13, 16)|		 | Tipos: identificador|]		
- , 	[ Simbolo:'*'|		 | Ubicacion:(13, 18)|		 | Tipos: Operador Aritmetico ; Separador|]		
+ , 	[ Simbolo:'+'|		 | Ubicacion:(13, 18)|		 | Tipos: Operador Aritmetico ; Separador|]		
  , 	[ Simbolo:'2'|		 | Ubicacion:(13, 19)|		 | Tipos: identificador|]		
  , 	[ Simbolo:')'|		 | Ubicacion:(13, 20)|		 | Tipos: Operador Agrupacion ; Separador|]		
  , 	[ Simbolo:'+'|		 | Ubicacion:(13, 21)|		 | Tipos: Operador Aritmetico ; Separador|]		
@@ -15,7 +15,7 @@
  , 	[ Simbolo:'volumen'|		 | Ubicacion:(13, 40)|		 | Tipos: identificador|]		
  , 	[ Simbolo:')'|		 | Ubicacion:(13, 47)|		 | Tipos: Operador Agrupacion ; Separador|]		
  ]
-Expresión: (12*2)+85*diametro-agua+(volumen)}
+Expresión: (12+2)+85*diametro-agua+(volumen)}
 , OperacionAritmetica{
 [	[ Simbolo:'('|		 | Ubicacion:(15, 16)|		 | Tipos: Operador Agrupacion ; Separador|]		
  , 	[ Simbolo:'('|		 | Ubicacion:(15, 17)|		 | Tipos: Operador Agrupacion ; Separador|]		
@@ -89,9 +89,19 @@ Expresión: 55+3*8-2/7}
  ]
 Expresión: 7/2-8*3+55}
 , OperacionAritmetica{
-[	[ Simbolo:'55'|		 | Ubicacion:(57, 16)|		 | Tipos: identificador|]		
- , 	[ Simbolo:'+'|		 | Ubicacion:(57, 19)|		 | Tipos: Operador Aritmetico ; Separador|]		
- , 	[ Simbolo:'3'|		 | Ubicacion:(57, 21)|		 | Tipos: identificador|]		
+[	[ Simbolo:'('|		 | Ubicacion:(57, 16)|		 | Tipos: Operador Agrupacion ; Separador|]		
+ , 	[ Simbolo:'7'|		 | Ubicacion:(57, 18)|		 | Tipos: identificador|]		
+ , 	[ Simbolo:'+'|		 | Ubicacion:(57, 20)|		 | Tipos: Operador Aritmetico ; Separador|]		
+ , 	[ Simbolo:'a'|		 | Ubicacion:(57, 22)|		 | Tipos: identificador|]		
+ , 	[ Simbolo:')'|		 | Ubicacion:(57, 24)|		 | Tipos: Operador Agrupacion ; Separador|]		
+ , 	[ Simbolo:'*'|		 | Ubicacion:(57, 26)|		 | Tipos: Operador Aritmetico ; Separador|]		
+ , 	[ Simbolo:'b'|		 | Ubicacion:(57, 28)|		 | Tipos: identificador|]		
+ ]
+Expresión: (7+a)*b}
+, OperacionAritmetica{
+[	[ Simbolo:'55'|		 | Ubicacion:(58, 16)|		 | Tipos: identificador|]		
+ , 	[ Simbolo:'+'|		 | Ubicacion:(58, 19)|		 | Tipos: Operador Aritmetico ; Separador|]		
+ , 	[ Simbolo:'3'|		 | Ubicacion:(58, 21)|		 | Tipos: identificador|]		
  ]
 Expresión: 55+3}
 ]

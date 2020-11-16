@@ -45,12 +45,9 @@ public class ConversionInfijoPrefijo {
             //Si el tokenEntrada es + HaceMatch y llama a termino y tambien a ExpresionPrima
             if (TokenEntrada == '+') {
 
-
-                
                 HacerMatch('+');
 
                 Termino();
-
 
                 prefijo.add('+');
 
@@ -58,22 +55,16 @@ public class ConversionInfijoPrefijo {
 
             } else if (TokenEntrada == '-') {
 
-
                 HacerMatch('-');
 
                 Termino();
-
 
                 prefijo.add('-');
 
                 ExpresionPrima();
                 //Si el tokenEntrada es - HaceMatch y llama a termino y tambien a ExpresionPrima
             } else {
-
-
                     //No hacer nada: Epsilon
-
-
             }
 
 
@@ -89,27 +80,21 @@ public class ConversionInfijoPrefijo {
 
     public void TerminoPrima() {
 
-
             //Si el tokenEntrada es * HaceMatch y llama a Factor y tambien a TerminoPrima
             if (TokenEntrada == '*') {
-
 
                 HacerMatch('*');
 
                 Factor();
-
 
                 prefijo.add('*');
 
                 TerminoPrima();
             } else if (TokenEntrada == '/') {
 
-
-
                 HacerMatch('/');
 
                 Factor();
-
 
                 prefijo.add('/');
 
@@ -130,9 +115,7 @@ public class ConversionInfijoPrefijo {
         if(TokenEntrada=='('){
             parentesis.push(TokenEntrada);
 
-
             HacerMatch(TokenEntrada);
-
 
             Expresion();
 
@@ -166,7 +149,7 @@ public class ConversionInfijoPrefijo {
     //La longitud de la CadenaAnalizada
     public void HacerMatch(char t) {
 
-            TokenEntrada = ObtenerToken();
+        TokenEntrada = ObtenerToken();
 
     }
 
@@ -180,7 +163,6 @@ public class ConversionInfijoPrefijo {
 
 
     public void NumeroPrima() {
-
 
             //NumeroPrima verifica si hay un numero y llama a Digito y a NumeroPrima
             if (TokenEntrada == '1' || TokenEntrada == '2' || TokenEntrada == '3' ||
@@ -265,8 +247,23 @@ public class ConversionInfijoPrefijo {
     public void AnalizarCadena(String cadena) {
         PosicionCinta = 0;
 
-        StringBuilder t=new StringBuilder(cadena);
-        cadena=t.reverse().toString();
+        StringBuilder t=new StringBuilder();
+
+        for (int i=cadena.length()-1;i>=0;i--){
+            if(cadena.charAt(i)=='('){
+                t.append(')');
+            }else if(cadena.charAt(i)== ')'){
+                t.append('(');
+            }else{
+                t.append(cadena.charAt(i));
+            }
+
+
+        }
+
+        cadena=t.toString();
+
+        System.out.println(cadena);
 
         CadenaAnalizada = cadena;
         TokenEntrada = ObtenerToken();
