@@ -76,4 +76,22 @@ Expresión: (55+2)+hola-diametro}
  , 	[ Simbolo:'7'|		 | Ubicacion:(55, 32)|		 | Tipos: identificador|]		
  ]
 Expresión: 55+3*8-2/7}
+, OperacionAritmetica{
+[	[ Simbolo:'7'|		 | Ubicacion:(56, 15)|		 | Tipos: identificador|]		
+ , 	[ Simbolo:'/'|		 | Ubicacion:(56, 17)|		 | Tipos: Operador Aritmetico ; Separador|]		
+ , 	[ Simbolo:'2'|		 | Ubicacion:(56, 18)|		 | Tipos: identificador|]		
+ , 	[ Simbolo:'-'|		 | Ubicacion:(56, 20)|		 | Tipos: Operador Aritmetico ; Separador|]		
+ , 	[ Simbolo:'8'|		 | Ubicacion:(56, 22)|		 | Tipos: identificador|]		
+ , 	[ Simbolo:'*'|		 | Ubicacion:(56, 24)|		 | Tipos: Operador Aritmetico ; Separador|]		
+ , 	[ Simbolo:'3'|		 | Ubicacion:(56, 26)|		 | Tipos: identificador|]		
+ , 	[ Simbolo:'+'|		 | Ubicacion:(56, 28)|		 | Tipos: Operador Aritmetico ; Separador|]		
+ , 	[ Simbolo:'55'|		 | Ubicacion:(56, 30)|		 | Tipos: identificador|]		
+ ]
+Expresión: 7/2-8*3+55}
+, OperacionAritmetica{
+[	[ Simbolo:'55'|		 | Ubicacion:(57, 16)|		 | Tipos: identificador|]		
+ , 	[ Simbolo:'+'|		 | Ubicacion:(57, 19)|		 | Tipos: Operador Aritmetico ; Separador|]		
+ , 	[ Simbolo:'3'|		 | Ubicacion:(57, 21)|		 | Tipos: identificador|]		
+ ]
+Expresión: 55+3}
 ]

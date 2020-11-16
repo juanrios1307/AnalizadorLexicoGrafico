@@ -3,7 +3,7 @@ package principal;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class ConversionInfijoPosPre {
+public class ConversionInfijoPosfijo {
 
     //Se declaran variables a usar
     //posicion actual de la cadena
@@ -18,25 +18,24 @@ public class ConversionInfijoPosPre {
     //Abecedario para identificadores
     String abecedario="abcdefghijklmnopqrstuvwxyz";
 
-    //Booleano para verificar sintaxis
-    boolean isBad =false;
 
     //Listas que almacenan notacion Prefija y PosFija
-    ArrayList<Character> prefijo=new ArrayList<>();
+
     ArrayList<Character> posfijo=new ArrayList<>();
 
-    Stack<Character> parentesis=new Stack<Character>();
+
+
+    Stack<Character> parentesis=new Stack<>();
 
     //Constructor de la GLC
-    public ConversionInfijoPosPre(String operacion){
+    public ConversionInfijoPosfijo(String operacion){
         AnalizarCadena(operacion);
     }
 
 
-
     //Metodo expresion llama a Termino y ExpresionPrima
     public void Expresion() {
-
+        
         Termino();
         ExpresionPrima();
     }//Cierra Expresion
@@ -47,8 +46,6 @@ public class ConversionInfijoPosPre {
 
             //Si el tokenEntrada es + HaceMatch y llama a termino y tambien a ExpresionPrima
             if (TokenEntrada == '+') {
-
-                prefijo.add('+');
 
                 HacerMatch('+');
 
@@ -61,7 +58,6 @@ public class ConversionInfijoPosPre {
 
             } else if (TokenEntrada == '-') {
 
-                prefijo.add('-');
 
                 HacerMatch('-');
 
@@ -97,7 +93,7 @@ public class ConversionInfijoPosPre {
             //Si el tokenEntrada es * HaceMatch y llama a Factor y tambien a TerminoPrima
             if (TokenEntrada == '*') {
 
-                prefijo.add('*');
+
 
                 HacerMatch('*');
 
@@ -109,7 +105,6 @@ public class ConversionInfijoPosPre {
                 TerminoPrima();
             } else if (TokenEntrada == '/') {
 
-                prefijo.add('/');
 
                 HacerMatch('/');
 
@@ -196,6 +191,8 @@ public class ConversionInfijoPosPre {
                 NumeroPrima();
             } else {
                 //No hacer nada: Epsilon
+                posfijo.add(' ');
+
             }
 
     }//Cierra NumeroPrima
@@ -208,8 +205,9 @@ public class ConversionInfijoPosPre {
                     TokenEntrada=='7' || TokenEntrada=='8' ||TokenEntrada=='9'
                     || TokenEntrada=='0')
             {
-                prefijo.add(TokenEntrada);
+
                 posfijo.add(TokenEntrada);
+
 
                 HacerMatch(TokenEntrada);
             }
@@ -235,6 +233,7 @@ public class ConversionInfijoPosPre {
                 IdentificadorPrima();
             } else {
                 //No hacer nada: Epsilon
+                posfijo.add(' ');
             }
 
     }//Cierra IdentificadorPrima
@@ -244,7 +243,6 @@ public class ConversionInfijoPosPre {
         //Letra verifica si el token es una letra y HaceMatch, en otro caso presenta error
         if (abecedario.contains(TokenEntrada.toString())) {
 
-            prefijo.add(TokenEntrada);
             posfijo.add(TokenEntrada);
 
             HacerMatch(TokenEntrada);

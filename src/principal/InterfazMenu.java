@@ -367,11 +367,27 @@ public class InterfazMenu extends JFrame {
 
         }while(!indexValidos.contains(n));
 
-        ConversionInfijoPosPre expresion=new ConversionInfijoPosPre(tabla.get(n).expr);
+        ConversionInfijoPosfijo expresionPosfijo=new ConversionInfijoPosfijo(tabla.get(n).expr);
+        ConversionInfijoPrefijo expresionPrefijo=new ConversionInfijoPrefijo(tabla.get(n).expr);
+
+
+        StringBuilder temp=new StringBuilder(expresionPrefijo.prefijo.toString());
+
+        String prefijo=temp.reverse().toString()
+                .replace(",","")
+                .replace("[","")
+                .replace("]","");
+
+
+        String posfijo=expresionPosfijo.posfijo.toString()
+                .replace(",","")
+                .replace("[","")
+                .replace("]","");
+
 
 
         JOptionPane.showMessageDialog(null,
-                "Prefija: "+expresion.prefijo.toString()+"\nPosfija: "+ expresion.posfijo.toString()
+                "Prefija: "+prefijo+"\nPosfija: "+posfijo
                     , "Notación prefija y posfija", JOptionPane.INFORMATION_MESSAGE);
 
 
