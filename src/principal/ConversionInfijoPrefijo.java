@@ -247,6 +247,7 @@ public class ConversionInfijoPrefijo {
     public void AnalizarCadena(String cadena) {
         PosicionCinta = 0;
 
+        //Se crea string adicional para evaluar expresion en orden inverso
         StringBuilder t=new StringBuilder();
 
         for (int i=cadena.length()-1;i>=0;i--){
@@ -262,8 +263,6 @@ public class ConversionInfijoPrefijo {
         }
 
         cadena=t.toString();
-
-        System.out.println(cadena);
 
         CadenaAnalizada = cadena;
         TokenEntrada = ObtenerToken();
