@@ -8,9 +8,11 @@ public class ConversionInfijoPrefijo {
     //Se declaran variables a usar
     //posicion actual de la cadena
     int PosicionCinta ;
+    int PosicionTS ;
 
     //caracter actual analizado
     Character TokenEntrada ;
+    Character TokenSiguiente;
 
     //Cadena a analizar
     String CadenaAnalizada = " ";
@@ -33,7 +35,7 @@ public class ConversionInfijoPrefijo {
 
     //Metodo expresion llama a Termino y ExpresionPrima
     public void Expresion() {
-        
+
         Termino();
         ExpresionPrima();
     }//Cierra Expresion
@@ -49,8 +51,6 @@ public class ConversionInfijoPrefijo {
 
                 Termino();
 
-                prefijo.add('+');
-
                 ExpresionPrima();
 
             } else if (TokenEntrada == '-') {
@@ -59,11 +59,12 @@ public class ConversionInfijoPrefijo {
 
                 Termino();
 
-                prefijo.add('-');
-
                 ExpresionPrima();
                 //Si el tokenEntrada es - HaceMatch y llama a termino y tambien a ExpresionPrima
             } else {
+                if(TokenSiguiente=='+' || TokenSiguiente=='-'){
+                    prefijo.add(TokenSiguiente);
+                }
                     //No hacer nada: Epsilon
             }
 
@@ -73,6 +74,7 @@ public class ConversionInfijoPrefijo {
 
     //El metodo termino llama a Factor y TerminoPrima
     public void Termino() {
+
 
         Factor();
         TerminoPrima();
@@ -87,7 +89,6 @@ public class ConversionInfijoPrefijo {
 
                 Factor();
 
-                prefijo.add('*');
 
                 TerminoPrima();
             } else if (TokenEntrada == '/') {
@@ -96,13 +97,14 @@ public class ConversionInfijoPrefijo {
 
                 Factor();
 
-                prefijo.add('/');
 
                 TerminoPrima();
                 //Si el tokenEntrada es / HaceMatch y llama a Factor y tambien a TerminoPrima
             } else {
                 //No hacer nada: Epsilon
-
+                if(TokenSiguiente=='*' || TokenSiguiente=='/'){
+                    prefijo.add(TokenSiguiente);
+                }
             }
 
 
@@ -110,6 +112,7 @@ public class ConversionInfijoPrefijo {
 
     //El metodo Factor verifica si el tokenEntrada es parentesis, numero o identificador
     public void Factor() {
+
 
         //Si el Token es ( haceMatch llama a Expresion y cierra )
         if(TokenEntrada=='('){
@@ -122,6 +125,7 @@ public class ConversionInfijoPrefijo {
             if(TokenEntrada==')'){
 
                 HacerMatch(TokenEntrada);
+
                 parentesis.pop();
             }else{
 
@@ -150,7 +154,10 @@ public class ConversionInfijoPrefijo {
     public void HacerMatch(char t) {
 
         TokenEntrada = ObtenerToken();
+        TokenSiguiente=ObtenerTokenSiguiente();
 
+        System.out.println("TE: "+TokenEntrada);
+        System.out.println("TS: "+TokenSiguiente);
     }
 
 
@@ -243,30 +250,27 @@ public class ConversionInfijoPrefijo {
         }
     }//Cierra ObtenerToken
 
+    //ObtenerTokenSiguiente incrementa PosicionCinta y retorna la CadenaAnalizada en una posicion menor
+    public Character ObtenerTokenSiguiente() {
+        if(PosicionTS < CadenaAnalizada.length()) {
+            PosicionTS++;
+            return (CadenaAnalizada.charAt(PosicionTS-1));
+        }else{
+            return ' ';
+        }
+    }//Cierra ObtenerToken
+
     //AnalizarCadena recibe un String, e inicializa las variables
     public void AnalizarCadena(String cadena) {
         PosicionCinta = 0;
-
-        //Se crea string adicional para evaluar expresion en orden inverso
-        StringBuilder t=new StringBuilder();
-
-        for (int i=cadena.length()-1;i>=0;i--){
-            if(cadena.charAt(i)=='('){
-                t.append(')');
-            }else if(cadena.charAt(i)== ')'){
-                t.append('(');
-            }else{
-                t.append(cadena.charAt(i));
-            }
-
-
-        }
-
-        cadena=t.toString();
+        PosicionTS = 1;
 
         CadenaAnalizada = cadena;
         TokenEntrada = ObtenerToken();
+        TokenSiguiente=ObtenerTokenSiguiente();
 
+        System.out.println("TE: "+TokenEntrada);
+        System.out.println("TS: "+TokenSiguiente);
         //La GLC comienza con <EXPRESION>
         Expresion();
 

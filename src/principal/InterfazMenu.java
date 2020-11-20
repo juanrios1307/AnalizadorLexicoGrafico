@@ -371,9 +371,7 @@ public class InterfazMenu extends JFrame {
         ConversionInfijoPrefijo expresionPrefijo=new ConversionInfijoPrefijo(tabla.get(n).expr);
 
 
-        StringBuilder temp=new StringBuilder(expresionPrefijo.prefijo.toString());
-
-        String prefijo=temp.reverse().toString()
+        String prefijo=expresionPrefijo.prefijo.toString()
                 .replace(",","")
                 .replace("[","")
                 .replace("]","");

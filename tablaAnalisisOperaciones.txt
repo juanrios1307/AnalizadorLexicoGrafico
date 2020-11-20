@@ -85,9 +85,9 @@ Expresión: 55+3*8-2/7}
  , 	[ Simbolo:'*'|		 | Ubicacion:(56, 24)|		 | Tipos: Operador Aritmetico ; Separador|]		
  , 	[ Simbolo:'3'|		 | Ubicacion:(56, 26)|		 | Tipos: identificador|]		
  , 	[ Simbolo:'+'|		 | Ubicacion:(56, 28)|		 | Tipos: Operador Aritmetico ; Separador|]		
- , 	[ Simbolo:'55'|		 | Ubicacion:(56, 30)|		 | Tipos: identificador|]		
+ , 	[ Simbolo:'5'|		 | Ubicacion:(56, 30)|		 | Tipos: identificador|]		
  ]
-Expresión: 7/2-8*3+55}
+Expresión: 7/2-8*3+5}
 , OperacionAritmetica{
 [	[ Simbolo:'('|		 | Ubicacion:(57, 16)|		 | Tipos: Operador Agrupacion ; Separador|]		
  , 	[ Simbolo:'7'|		 | Ubicacion:(57, 18)|		 | Tipos: identificador|]		
@@ -99,9 +99,25 @@ Expresión: 7/2-8*3+55}
  ]
 Expresión: (7+a)*b}
 , OperacionAritmetica{
-[	[ Simbolo:'55'|		 | Ubicacion:(58, 16)|		 | Tipos: identificador|]		
- , 	[ Simbolo:'+'|		 | Ubicacion:(58, 19)|		 | Tipos: Operador Aritmetico ; Separador|]		
- , 	[ Simbolo:'3'|		 | Ubicacion:(58, 21)|		 | Tipos: identificador|]		
+[	[ Simbolo:'5'|		 | Ubicacion:(58, 16)|		 | Tipos: identificador|]		
+ , 	[ Simbolo:'+'|		 | Ubicacion:(58, 18)|		 | Tipos: Operador Aritmetico ; Separador|]		
+ , 	[ Simbolo:'3'|		 | Ubicacion:(58, 20)|		 | Tipos: identificador|]		
  ]
-Expresión: 55+3}
+Expresión: 5+3}
+, OperacionAritmetica{
+[	[ Simbolo:'5'|		 | Ubicacion:(59, 13)|		 | Tipos: identificador|]		
+ , 	[ Simbolo:'+'|		 | Ubicacion:(59, 15)|		 | Tipos: Operador Aritmetico ; Separador|]		
+ , 	[ Simbolo:'3'|		 | Ubicacion:(59, 17)|		 | Tipos: identificador|]		
+ , 	[ Simbolo:'-'|		 | Ubicacion:(59, 19)|		 | Tipos: Operador Aritmetico ; Separador|]		
+ , 	[ Simbolo:'2'|		 | Ubicacion:(59, 21)|		 | Tipos: identificador|]		
+ , 	[ Simbolo:'+'|		 | Ubicacion:(59, 23)|		 | Tipos: Operador Aritmetico ; Separador|]		
+ , 	[ Simbolo:'8'|		 | Ubicacion:(59, 25)|		 | Tipos: identificador|]		
+ , 	[ Simbolo:'-'|		 | Ubicacion:(59, 27)|		 | Tipos: Operador Aritmetico ; Separador|]		
+ , 	[ Simbolo:'9'|		 | Ubicacion:(59, 29)|		 | Tipos: identificador|]		
+ , 	[ Simbolo:'+'|		 | Ubicacion:(59, 31)|		 | Tipos: Operador Aritmetico ; Separador|]		
+ , 	[ Simbolo:'10'|		 | Ubicacion:(59, 33)|		 | Tipos: identificador|]		
+ , 	[ Simbolo:'-'|		 | Ubicacion:(59, 36)|		 | Tipos: Operador Aritmetico ; Separador|]		
+ , 	[ Simbolo:'44'|		 | Ubicacion:(59, 38)|		 | Tipos: identificador|]		
+ ]
+Expresión: 5+3-2+8-9+10-44}
 ]

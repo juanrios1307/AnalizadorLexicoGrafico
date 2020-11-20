@@ -51,7 +51,6 @@ public class ConversionInfijoPosfijo {
 
                 Termino();
 
-
                 posfijo.add('+');
 
                 ExpresionPrima();
@@ -62,8 +61,6 @@ public class ConversionInfijoPosfijo {
                 HacerMatch('-');
 
                 Termino();
-
-
                 posfijo.add('-');
 
                 ExpresionPrima();
@@ -98,7 +95,6 @@ public class ConversionInfijoPosfijo {
                 HacerMatch('*');
 
                 Factor();
-
 
                 posfijo.add('*');
 
