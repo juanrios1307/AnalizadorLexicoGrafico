@@ -8,11 +8,10 @@ public class ConversionInfijoPrefijo {
     //Se declaran variables a usar
     //posicion actual de la cadena
     int PosicionCinta ;
-    int PosicionTS ;
-
+    int temp,e=0;
+    int temp1;
     //caracter actual analizado
     Character TokenEntrada ;
-    Character TokenSiguiente;
 
     //Cadena a analizar
     String CadenaAnalizada = " ";
@@ -32,9 +31,31 @@ public class ConversionInfijoPrefijo {
         AnalizarCadena(operacion);
     }
 
+    public char siguienteSuma(){
+        int i=PosicionCinta;
+        while(i<CadenaAnalizada.length()){
+            if(CadenaAnalizada.charAt(i)=='+' || CadenaAnalizada.charAt(i)=='-' ){
+                return CadenaAnalizada.charAt(i);
+            }
+            i++;
+        }
+        return ' ';
+    }
+
+    public char siguienteMulti(){
+        int i=PosicionCinta;
+        while(i<CadenaAnalizada.length()){
+            if(CadenaAnalizada.charAt(i)=='*' || CadenaAnalizada.charAt(i)=='/' ){
+                return CadenaAnalizada.charAt(i);
+            }
+            i++;
+        }
+        return ' ';
+    }
 
     //Metodo expresion llama a Termino y ExpresionPrima
     public void Expresion() {
+
 
         Termino();
         ExpresionPrima();
@@ -43,28 +64,32 @@ public class ConversionInfijoPrefijo {
     //Metodo Expresion prima
     public void ExpresionPrima() {
 
-
             //Si el tokenEntrada es + HaceMatch y llama a termino y tambien a ExpresionPrima
             if (TokenEntrada == '+') {
+
 
                 HacerMatch('+');
 
                 Termino();
 
+                prefijo.add(0,'+');
+
                 ExpresionPrima();
 
             } else if (TokenEntrada == '-') {
+
+
 
                 HacerMatch('-');
 
                 Termino();
 
+                prefijo.add(0,'-');
+
                 ExpresionPrima();
                 //Si el tokenEntrada es - HaceMatch y llama a termino y tambien a ExpresionPrima
             } else {
-                if(TokenSiguiente=='+' || TokenSiguiente=='-'){
-                    prefijo.add(TokenSiguiente);
-                }
+
                     //No hacer nada: Epsilon
             }
 
@@ -75,8 +100,10 @@ public class ConversionInfijoPrefijo {
     //El metodo termino llama a Factor y TerminoPrima
     public void Termino() {
 
+        temp=PosicionCinta+e;
 
         Factor();
+
         TerminoPrima();
     }//Cierra Termino
 
@@ -87,24 +114,29 @@ public class ConversionInfijoPrefijo {
 
                 HacerMatch('*');
 
-                Factor();
+                System.out.println(prefijo.toString());
 
+                prefijo.add(temp==0?temp:temp>1?temp-2:temp-1,'*');
+
+                Factor();
 
                 TerminoPrima();
             } else if (TokenEntrada == '/') {
 
+
                 HacerMatch('/');
 
-                Factor();
+                System.out.println(prefijo.toString());
 
+                prefijo.add(temp==0?temp:temp>1?temp-2:temp-1,'/');
+
+                Factor();
 
                 TerminoPrima();
                 //Si el tokenEntrada es / HaceMatch y llama a Factor y tambien a TerminoPrima
             } else {
                 //No hacer nada: Epsilon
-                if(TokenSiguiente=='*' || TokenSiguiente=='/'){
-                    prefijo.add(TokenSiguiente);
-                }
+
             }
 
 
@@ -154,10 +186,7 @@ public class ConversionInfijoPrefijo {
     public void HacerMatch(char t) {
 
         TokenEntrada = ObtenerToken();
-        TokenSiguiente=ObtenerTokenSiguiente();
 
-        System.out.println("TE: "+TokenEntrada);
-        System.out.println("TS: "+TokenSiguiente);
     }
 
 
@@ -166,6 +195,10 @@ public class ConversionInfijoPrefijo {
 
         Digito();
         NumeroPrima();
+
+        prefijo.add(' ');
+        e++;
+
     }//Cierra Numerp
 
 
@@ -180,7 +213,7 @@ public class ConversionInfijoPrefijo {
                 NumeroPrima();
             } else {
                 //No hacer nada: Epsilon
-                prefijo.add(' ');
+
             }
 
     }//Cierra NumeroPrima
@@ -210,6 +243,9 @@ public class ConversionInfijoPrefijo {
 
         Letra();
         IdentificadorPrima();
+
+        prefijo.add(' ');
+        e++;
     }//Cierra Identificador
 
     public void IdentificadorPrima() {
@@ -220,7 +256,6 @@ public class ConversionInfijoPrefijo {
                 IdentificadorPrima();
             } else {
                 //No hacer nada: Epsilon
-                prefijo.add(' ');
             }
 
     }//Cierra IdentificadorPrima
@@ -250,27 +285,14 @@ public class ConversionInfijoPrefijo {
         }
     }//Cierra ObtenerToken
 
-    //ObtenerTokenSiguiente incrementa PosicionCinta y retorna la CadenaAnalizada en una posicion menor
-    public Character ObtenerTokenSiguiente() {
-        if(PosicionTS < CadenaAnalizada.length()) {
-            PosicionTS++;
-            return (CadenaAnalizada.charAt(PosicionTS-1));
-        }else{
-            return ' ';
-        }
-    }//Cierra ObtenerToken
 
     //AnalizarCadena recibe un String, e inicializa las variables
     public void AnalizarCadena(String cadena) {
         PosicionCinta = 0;
-        PosicionTS = 1;
 
         CadenaAnalizada = cadena;
         TokenEntrada = ObtenerToken();
-        TokenSiguiente=ObtenerTokenSiguiente();
 
-        System.out.println("TE: "+TokenEntrada);
-        System.out.println("TS: "+TokenSiguiente);
         //La GLC comienza con <EXPRESION>
         Expresion();
 
