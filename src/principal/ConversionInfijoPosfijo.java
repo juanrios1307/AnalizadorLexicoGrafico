@@ -172,6 +172,8 @@ public class ConversionInfijoPosfijo {
 
         Digito();
         NumeroPrima();
+
+        posfijo.add(' ');
     }//Cierra Numerp
 
 
@@ -187,7 +189,6 @@ public class ConversionInfijoPosfijo {
                 NumeroPrima();
             } else {
                 //No hacer nada: Epsilon
-                posfijo.add(' ');
 
             }
 
@@ -219,6 +220,8 @@ public class ConversionInfijoPosfijo {
 
         Letra();
         IdentificadorPrima();
+
+        posfijo.add(' ');
     }//Cierra Identificador
 
     public void IdentificadorPrima() {
@@ -229,7 +232,6 @@ public class ConversionInfijoPosfijo {
                 IdentificadorPrima();
             } else {
                 //No hacer nada: Epsilon
-                posfijo.add(' ');
             }
 
     }//Cierra IdentificadorPrima

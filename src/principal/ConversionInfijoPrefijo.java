@@ -8,8 +8,10 @@ public class ConversionInfijoPrefijo {
     //Se declaran variables a usar
     //posicion actual de la cadena
     int PosicionCinta ;
-    int temp,e=0;
-    int temp1;
+
+    //Se declaran dos variables temporales, con contadores para
+    //parentesis y espacios
+    int tempTerm, tempExpr ,e=0,p=0;
     //caracter actual analizado
     Character TokenEntrada ;
 
@@ -18,7 +20,6 @@ public class ConversionInfijoPrefijo {
 
     //Abecedario para identificadores
     String abecedario="abcdefghijklmnopqrstuvwxyz";
-
 
     //Listas que almacenan notacion Prefija y PosFija
 
@@ -31,32 +32,10 @@ public class ConversionInfijoPrefijo {
         AnalizarCadena(operacion);
     }
 
-    public char siguienteSuma(){
-        int i=PosicionCinta;
-        while(i<CadenaAnalizada.length()){
-            if(CadenaAnalizada.charAt(i)=='+' || CadenaAnalizada.charAt(i)=='-' ){
-                return CadenaAnalizada.charAt(i);
-            }
-            i++;
-        }
-        return ' ';
-    }
-
-    public char siguienteMulti(){
-        int i=PosicionCinta;
-        while(i<CadenaAnalizada.length()){
-            if(CadenaAnalizada.charAt(i)=='*' || CadenaAnalizada.charAt(i)=='/' ){
-                return CadenaAnalizada.charAt(i);
-            }
-            i++;
-        }
-        return ' ';
-    }
-
     //Metodo expresion llama a Termino y ExpresionPrima
     public void Expresion() {
 
-        temp1=PosicionCinta+e;
+        tempExpr =PosicionCinta+e-p;
 
         Termino();
         ExpresionPrima();
@@ -70,7 +49,7 @@ public class ConversionInfijoPrefijo {
 
                 HacerMatch('+');
 
-                prefijo.add(temp1==0?temp1:temp1>1?temp1-2:temp1-1,'+');
+                prefijo.add(tempExpr ==0? tempExpr : tempExpr >1? tempExpr -2: tempExpr -1,'+');
 
                 Termino();
 
@@ -80,7 +59,7 @@ public class ConversionInfijoPrefijo {
 
                 HacerMatch('-');
 
-                prefijo.add(temp1==0?temp1:temp1>1?temp1-2:temp1-1,'-');
+                prefijo.add(tempExpr ==0? tempExpr : tempExpr >1? tempExpr -2: tempExpr -1,'-');
 
                 Termino();
 
@@ -98,7 +77,7 @@ public class ConversionInfijoPrefijo {
     //El metodo termino llama a Factor y TerminoPrima
     public void Termino() {
 
-        temp=PosicionCinta+e;
+        tempTerm =PosicionCinta+e-p;
 
         Factor();
 
@@ -113,7 +92,7 @@ public class ConversionInfijoPrefijo {
                 HacerMatch('*');
 
 
-                prefijo.add(temp==0?temp:temp>1?temp-2:temp-1,'*');
+                prefijo.add(tempTerm ==0? tempTerm : tempTerm >1? tempTerm -2: tempTerm -1,'*');
 
                 Factor();
 
@@ -123,7 +102,7 @@ public class ConversionInfijoPrefijo {
 
                 HacerMatch('/');
 
-                prefijo.add(temp==0?temp:temp>1?temp-2:temp-1,'/');
+                prefijo.add(tempTerm ==0? tempTerm : tempTerm >1? tempTerm -2: tempTerm -1,'/');
 
                 Factor();
 
@@ -147,11 +126,15 @@ public class ConversionInfijoPrefijo {
 
             HacerMatch(TokenEntrada);
 
+            p++;
+
             Expresion();
 
             if(TokenEntrada==')'){
 
                 HacerMatch(TokenEntrada);
+
+                p++;
 
                 parentesis.pop();
             }else{
