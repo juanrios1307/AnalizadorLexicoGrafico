@@ -56,6 +56,7 @@ public class ConversionInfijoPrefijo {
     //Metodo expresion llama a Termino y ExpresionPrima
     public void Expresion() {
 
+        temp1=PosicionCinta+e;
 
         Termino();
         ExpresionPrima();
@@ -67,24 +68,21 @@ public class ConversionInfijoPrefijo {
             //Si el tokenEntrada es + HaceMatch y llama a termino y tambien a ExpresionPrima
             if (TokenEntrada == '+') {
 
-
                 HacerMatch('+');
 
-                Termino();
+                prefijo.add(temp1==0?temp1:temp1>1?temp1-2:temp1-1,'+');
 
-                prefijo.add(0,'+');
+                Termino();
 
                 ExpresionPrima();
 
             } else if (TokenEntrada == '-') {
 
-
-
                 HacerMatch('-');
 
-                Termino();
+                prefijo.add(temp1==0?temp1:temp1>1?temp1-2:temp1-1,'-');
 
-                prefijo.add(0,'-');
+                Termino();
 
                 ExpresionPrima();
                 //Si el tokenEntrada es - HaceMatch y llama a termino y tambien a ExpresionPrima
@@ -114,7 +112,6 @@ public class ConversionInfijoPrefijo {
 
                 HacerMatch('*');
 
-                System.out.println(prefijo.toString());
 
                 prefijo.add(temp==0?temp:temp>1?temp-2:temp-1,'*');
 
@@ -125,8 +122,6 @@ public class ConversionInfijoPrefijo {
 
 
                 HacerMatch('/');
-
-                System.out.println(prefijo.toString());
 
                 prefijo.add(temp==0?temp:temp>1?temp-2:temp-1,'/');
 
